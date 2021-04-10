@@ -1,0 +1,2 @@
+class CivilianFaction < ApplicationRecord
+end

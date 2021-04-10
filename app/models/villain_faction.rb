@@ -1,0 +1,2 @@
+class VillainFaction < ApplicationRecord
+end
