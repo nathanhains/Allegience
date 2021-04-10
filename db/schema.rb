@@ -10,15 +10,50 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_09_154519) do
+ActiveRecord::Schema.define(version: 2021_04_10_034209) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "civilian_factions", force: :cascade do |t|
+    t.string "name"
+    t.integer "owner_id"
+    t.integer "joiner_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "hero_factions", force: :cascade do |t|
+    t.string "name"
+    t.integer "owner_id"
+    t.integer "joiner_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "jobs", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.integer "requirement"
+    t.integer "reward"
+    t.integer "requestor_id"
+    t.integer "responder_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "email"
     t.string "password_digest"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "villain_factions", force: :cascade do |t|
+    t.string "name"
+    t.integer "owner_id"
+    t.integer "joiner_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

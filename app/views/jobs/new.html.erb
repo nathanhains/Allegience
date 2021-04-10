@@ -1,0 +1,17 @@
+<%=form_for(@job) do |f|%>
+
+<%=f.label "Title"%>
+<%=f.text_field :title%>
+
+<%=f.label "Description"%>
+<%=f.text_field :description%>
+
+<%=f.label "Requirement"%>
+<%=f.text_field :requirement%>
+
+<%=f.label "Reward"%>
+<%=f.text_field :reward%>
+
+<%=f.submit "submit"%>
+
+<%end%>
