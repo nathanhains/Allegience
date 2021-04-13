@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_10_034209) do
+ActiveRecord::Schema.define(version: 2021_04_12_020301) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "acceptances", force: :cascade do |t|
+    t.integer "job_response_id"
+    t.integer "responder_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "civilian_factions", force: :cascade do |t|
     t.string "name"
@@ -31,13 +38,20 @@ ActiveRecord::Schema.define(version: 2021_04_10_034209) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "heros", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "jobs", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.integer "requirement"
     t.integer "reward"
-    t.integer "requestor_id"
-    t.integer "responder_id"
+    t.integer "requestor_user_id"
+    t.integer "responder_user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -46,6 +60,11 @@ ActiveRecord::Schema.define(version: 2021_04_10_034209) do
     t.string "username"
     t.string "email"
     t.string "password_digest"
+    t.string "allegience", default: "Civilian"
+    t.string "alter_ego", default: "N/A"
+    t.string "power", default: "N/A"
+    t.integer "civilian_rank", default: 0
+    t.integer "powered_rank", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -54,6 +73,13 @@ ActiveRecord::Schema.define(version: 2021_04_10_034209) do
     t.string "name"
     t.integer "owner_id"
     t.integer "joiner_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "villains", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

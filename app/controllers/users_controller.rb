@@ -9,8 +9,13 @@ class UsersController < ApplicationController
     end
 
     def create 
-        @user = User.create(params.require(:user).permit(:username, :email, :password))
-        redirect_to "/login"
+        @user = User.new(params.require(:user).permit(:username, :email, :password))
+        if @user.valid?
+            @user.save
+            redirect_to "/login"
+        else
+            render :new
+        end
     end
 
 end

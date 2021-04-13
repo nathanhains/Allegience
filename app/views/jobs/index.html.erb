@@ -1,0 +1,7 @@
+<h1>All Jobs</h1>
+<%@jobs.each do |job|%>
+<h1><%=job.title%></h1>
+<h3>Requirement: lvl.<%=job.requirement%></h3>
+<%=link_to "More Info.", job_path(job) %>
+<%end%>
+

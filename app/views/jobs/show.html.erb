@@ -1,0 +1,13 @@
+<h1><%=@job.title%> lvl. <%=@job.requirement%></h1>
+<h2>Requested by: <%= @job.requestor_user.username%>
+
+<h3><%=@job.description%></h3>
+<h3>Reward: <%=@job.requirement%>points</h3>
+
+<%if @acceptance%>
+<h2>Completed!</h2>
+<%else%>
+<%= form_for(@job) do |f| %>
+    <%= f.submit "Accept Job" %>
+<% end %>
+<%end%>
