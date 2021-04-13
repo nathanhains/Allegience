@@ -2,6 +2,10 @@
 <%@jobs.each do |job|%>
 <h1><%=job.title%></h1>
 <h3>Requirement: lvl.<%=job.requirement%></h3>
+<%if Acceptance.find_by(job_response_id: job.id, responder_id: @current_user.id)%>
+<h2>Completed!</h2>
+<%else%>
 <%=link_to "More Info.", job_path(job) %>
+<%end%>
 <%end%>
 

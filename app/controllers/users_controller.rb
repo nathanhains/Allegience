@@ -8,6 +8,10 @@ class UsersController < ApplicationController
         end
     end
 
+    def show
+        @user = User.find(current_user.id)
+    end
+
     def create 
         @user = User.new(params.require(:user).permit(:username, :email, :password))
         if @user.valid?
@@ -17,5 +21,7 @@ class UsersController < ApplicationController
             render :new
         end
     end
+
+
 
 end

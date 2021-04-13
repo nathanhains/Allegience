@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
         @user = User.find_by(username: params[:user][:username])
         if @user && @user.authenticate(params[:user][:password])
             login(@user)
-            redirect_to "/"
+            redirect_to '/profile'
         else
             redirect_to "/login", :notice => "Can't find the user."
         end

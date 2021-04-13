@@ -26,7 +26,7 @@ class JobsController < ApplicationController
 
 
     def create
-        @job = Job.new(params.require(:job).permit(:title, :description, :requirement, :reward))
+        @job = Job.new(required_params)
         @job.requestor_user_id = current_user.id
         if @job.valid?
             @job.save
@@ -34,6 +34,11 @@ class JobsController < ApplicationController
         else
             render :new
         end
+    end
+
+    private
+    def required_params
+        params.require(:job).permit(:title, :description, :requirement, :reward)
     end
 
 end
