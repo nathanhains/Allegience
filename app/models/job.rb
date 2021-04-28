@@ -3,8 +3,12 @@ class Job < ApplicationRecord
     has_many :acceptances, foreign_key: :job_response_id
     has_many :responder_users, through: :acceptances, source: :responder
     validate :is_title_case
-    
-    before_save :make_title_case
+    validates :title, presence: true
+    validates :description, presence: true
+    validates :requirement, presence: true
+    validates :reward, presence: true
+
+    before_validation :make_title_case
 
     private
     def is_title_case
