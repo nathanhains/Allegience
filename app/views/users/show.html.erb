@@ -1,1 +1,38 @@
-<h1><%=@user.username%>'s Page</h1>
+<h1><%=@user.username%>'s Page
+<%if @user == @current_user%>
+<%=link_to "Edit", edit_user_path%></h1> 
+<%end%>
+<%=avatar_for @user%>
+<h2>Allegience: <%=@user.allegience%></h2>
+<h3>Alter Ego: <%=@user.alter_ego%>
+<%if @user.allegience == "Civilian"%>
+    Level:<%= @user.civilian.civilian_level%> Rank: <%= @user.civilian.civilian_rank%></h3>
+<%elsif @user.allegience == "Hero"%>
+    <%@hero = Hero.find_by(name: @user.alter_ego)%>
+    <%@heroization = Heroization.find_by(user_id: @current_user.id, hero_id: @hero.id)%>
+    Level:<%=@heroization.hero_level%> Rank: <%=@heroization.hero_rank%></h3>
+<%elsif @user.allegience == "Villain"%>
+    <%@villain = Villain.find_by(name: @user.alter_ego)%>
+    <%@villainization = Villainization.find_by(user_id: @current_user.id, villain_id: @villain.id)%>
+    Level:<%=@villainization.villain_level%> Rank:<%=@villainization.villain_level%>
+<%end%>
+<h2>Aliases:</h2>
+<%if @user.allegience != "Civilian"%>
+    <%=@user.civilian.name%> level <%=@user.civilian.civilian_level%> rank <%=@user.civilian.civilian_rank%>
+    <%=link_to "Switch Allegience", user_allegience_path(@user.civilian.name)%><br>
+<%end%>
+<%@user.heroizations.each do |heroization|%>
+    <%if heroization.hero.name != @user.alter_ego%>
+        <%=heroization.hero.name%> level <%=heroization.hero_level%> rank <%=heroization.hero_rank%>
+        <%=link_to "Switch Allegience", user_allegience_path(heroization.hero.name)%><br>
+    <%end%>
+<%end%>
+<%@user.villainizations.each do |villainization|%>
+    <%if villainization.villain.name != @user.alter_ego%>
+        <%=villainization.villain.name%> level <%=villainization.villain_level%> rank <%=villainization.villain_rank%>
+        <%=link_to "Switch Allegience", user_allegience_path(villainization.villain.name)%><br>
+    <%end%>
+<%end%>
+<%if (@user.heros.count + @user.villains.count) < 4%>
+    <%=link_to "Add a Character", roster_path%>
+<%end%>
