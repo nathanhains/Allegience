@@ -1,0 +1,8 @@
+<h1>All Civilian Factions</h1> 
+<%if @current_user.allegience == "Civilian"%>
+<%=link_to "Create Faction", new_civilian_faction_path%>
+<%end%><br>
+
+<%@civilian_factions.each do |civilian_faction|%>
+<%=link_to civilian_faction.name, civilian_faction_path(civilian_faction)%>
+<%end%>

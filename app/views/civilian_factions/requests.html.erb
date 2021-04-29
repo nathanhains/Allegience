@@ -1,0 +1,9 @@
+<%if @civilian_faction.owner_id == @current_user.civilian.id%>
+<h3>Requestors:</h3>
+<%@civilian_faction.civilian_faction_requests.each do |request|%>
+
+<%if request.accepted == false%>
+<%=request.requestor.name%> <%=link_to "Accept", civilian_faction_accept_path(@civilian_faction, request.requestor)%>
+<%end%>
+<%end%>
+<%end%>

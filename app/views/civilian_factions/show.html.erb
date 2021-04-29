@@ -1,0 +1,19 @@
+<%=@civilian_faction.name%>
+<%if @civilian_faction.owner_id == @current_user.civilian.id%>
+<%=link_to "requests", civilian_faction_requests_path(@civilian_faction)%>
+<%end%><br>
+<%if @civilian_faction.owner_id != @current_user.civilian.id && !@civilian_faction_request%>
+<%= form_for(@civilian_faction) do |f| %>
+    <%= f.submit "Join" %>
+<% end %>
+<%end%>
+
+<%if @civilian_faction_request && @civilian_faction_request.accepted == false%>
+<%= "Awaiting Acceptance"%>
+<%elsif @civilian_faction_request && @civilian_faction_request.accepted == true%>
+<%=form_for "/new" do |f|%>
+<%=f.label :chat%>
+<%=f.text_area :chat%>
+<%=f.submit%>
+<%end%>
+<%end%>
