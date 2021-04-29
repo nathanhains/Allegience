@@ -1,11 +1,25 @@
-<h1>All Jobs</h1>
+
+<h1>All Side Missions</h1> 
+<%if @current_user.allegience == "Civilian"%>
+<%=link_to "Create Job", new_job_path%>
+<%end%>
 <%@jobs.each do |job|%>
 <h1><%=job.title%></h1>
 <h3>Requirement: lvl.<%=job.requirement%></h3>
-<%if Acceptance.find_by(job_response_id: job.id, responder_id: @current_user.id)%>
-<h2>Completed!</h2>
+<%if @current_user.allegience == "Hero"%>
+    <%if @hero_acceptance = Acceptance.find_by(job_response_id: job.id, responder_id: @current_user.id, heroization_id: @heroization.id)%>
+    <h2>Completed!</h2>
+    <%else%>
+    <%=link_to "More Info.", job_path(job) %>
+    <%end%>
+<%elsif @current_user.allegience == "Villain"%>
+    <%if @villain_acceptance = Acceptance.find_by(job_response_id: job.id, responder_id: @current_user.id, villainization_id: @villainization.id)%>
+    <h2>Completed!</h2>
+    <%else%>
+    <%=link_to "More Info.", job_path(job) %>
+    <%end%>
 <%else%>
-<%=link_to "More Info.", job_path(job) %>
+    <%=link_to "More Info.", job_path(job) %>
 <%end%>
 <%end%>
 
