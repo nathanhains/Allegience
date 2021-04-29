@@ -2,7 +2,7 @@
   <div id="error_explanation">
     <h2>
       <%= pluralize(@user.errors.count, "error") %>
-      prohibited this post from being saved:
+      :
     </h2>
 
     <ul>
@@ -17,6 +17,9 @@
 <%= form_for(@user) do |f|%>
 <%= f.label :username%>
 <%=f.text_field :username%><br>
+
+<%=f.label "Civilian Name"%>
+<%=f.text_field :alter_ego%>
 
 <%= f.label :email%>
 <%=f.text_field :email%><br>
