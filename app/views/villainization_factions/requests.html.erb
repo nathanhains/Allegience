@@ -1,0 +1,11 @@
+<%if @villainization_faction.owner_id == @villainization.id%>
+<h3>Requestors:</h3>
+<%@villainization_faction.villainization_faction_requests.each do |request|%>
+
+<%if request.accepted == false%>
+<%@villain_name = Villain.find_by(id: request.requestor.villain_id).name%>
+<%@civilian_name = Civilian.find_by(user_id: request.requestor.user_id).name%>
+<%=@civilian_name%> as <%=@villain_name%> <%=link_to "Accept", villainization_faction_accept_path(@villainization_faction, request.requestor)%>
+<%end%>
+<%end%>
+<%end%>

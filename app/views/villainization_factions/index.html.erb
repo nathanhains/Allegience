@@ -1,0 +1,8 @@
+<h1>All Villain Factions</h1> 
+<%if @current_user.allegience == "Villain"%>
+<%=link_to "Create Faction", new_villainization_faction_path%>
+<%end%><br>
+
+<%@villainization_factions.each do |villainization_faction|%>
+<%=link_to villainization_faction.name, villainization_faction_path(villainization_faction)%>
+<%end%>
