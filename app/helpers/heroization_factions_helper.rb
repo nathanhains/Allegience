@@ -1,0 +1,2 @@
+module HeroizationFactionsHelper
+end

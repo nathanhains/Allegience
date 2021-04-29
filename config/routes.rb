@@ -18,4 +18,11 @@ Rails.application.routes.draw do
     get :accept
   end
 
+  resources :heroization_factions do
+    get :requests
+    get :accept
+  end
+
+  resources :comments
+
 end

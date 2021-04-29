@@ -1,0 +1,28 @@
+<%=@heroization_faction.name%>
+<%if @heroization_faction.owner_id == @heroization.id%>
+<%=link_to "requests", heroization_faction_requests_path(@heroization_faction)%>
+<%end%><br>
+<%if @heroization_faction.owner_id != @heroization.id && !@heroization_faction_request%>
+<%= form_for(@heroization_faction) do |f| %>
+    <%= f.submit "Join" %>
+<% end %>
+<%end%>
+
+<%if @heroization_faction_request && @heroization_faction_request.accepted == false%>
+<%= "Awaiting Acceptance"%>
+<%elsif @heroization_faction_request && @heroization_faction_request.accepted == true || @heroization_faction.owner_id == @heroization.id%>
+<%=form_for @hero_comment, :action => "post" do |f|%>
+<%=f.label "Comment"%>
+<%=f.text_area :body%>
+<%=f.hidden_field :heroization_faction_id, value: @heroization_faction.id%>
+<%=f.hidden_field :heroization_id, value: @heroization.id%>
+<%=f.submit "Submit"%>
+<%end%>
+
+<%@heroization_faction.hero_comments.order(id: :desc).each do |comment|%>
+<%@hero_name = Hero.find_by(id: comment.heroization.hero_id).name%>
+<%@civilian_name = Civilian.find_by(user_id: comment.heroization.user_id).name%>
+
+<%=@civilian_name%> as <%=@hero_name%>:<%=comment.body%><br> 
+<%end%>
+<%end%>

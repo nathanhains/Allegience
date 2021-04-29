@@ -1,6 +1,6 @@
 require "test_helper"
 
-class HeroFactionTest < ActiveSupport::TestCase
+class HeroizationFactionRequestTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

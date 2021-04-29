@@ -1,2 +1,0 @@
-class VillainFaction < ApplicationRecord
-end

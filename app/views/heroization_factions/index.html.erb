@@ -1,0 +1,8 @@
+<h1>All Hero Factions</h1> 
+<%if @current_user.allegience == "Hero"%>
+<%=link_to "Create Faction", new_heroization_faction_path%>
+<%end%><br>
+
+<%@heroization_factions.each do |heroization_faction|%>
+<%=link_to heroization_faction.name, heroization_faction_path(heroization_faction)%>
+<%end%>

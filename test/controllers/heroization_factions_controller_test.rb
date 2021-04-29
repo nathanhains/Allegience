@@ -1,6 +1,6 @@
 require "test_helper"
 
-class VillainFactionTest < ActiveSupport::TestCase
+class HeroizationFactionsControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end

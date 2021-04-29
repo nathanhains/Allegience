@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_28_225728) do
+ActiveRecord::Schema.define(version: 2021_04_29_172424) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,13 +53,33 @@ ActiveRecord::Schema.define(version: 2021_04_28_225728) do
 
   create_table "comments", force: :cascade do |t|
     t.text "body"
-    t.integer "commentable_id"
-    t.string "commentable_type"
+    t.integer "civilian_id"
+    t.integer "civilian_faction_id"
+    t.integer "heroization_id"
+    t.integer "villainization_id"
+    t.integer "heroization_faction_id"
+    t.integer "villainization_faction_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "hero_factions", force: :cascade do |t|
+  create_table "hero_comments", force: :cascade do |t|
+    t.text "body"
+    t.integer "heroization_id"
+    t.integer "heroization_faction_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "heroization_faction_requests", force: :cascade do |t|
+    t.integer "faction_request_id"
+    t.integer "requestor_id"
+    t.boolean "accepted", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "heroization_factions", force: :cascade do |t|
     t.string "name"
     t.integer "owner_id"
     t.integer "joiner_id"
@@ -120,7 +140,15 @@ ActiveRecord::Schema.define(version: 2021_04_28_225728) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "villain_factions", force: :cascade do |t|
+  create_table "villainization_faction_requests", force: :cascade do |t|
+    t.integer "faction_request_id"
+    t.integer "requestor_id"
+    t.boolean "accepted", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "villainization_factions", force: :cascade do |t|
     t.string "name"
     t.integer "owner_id"
     t.integer "joiner_id"

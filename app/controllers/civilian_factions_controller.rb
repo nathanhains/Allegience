@@ -1,4 +1,6 @@
 class CivilianFactionsController < ApplicationController
+    before_action :civilian?
+
     def new
         @civilian_faction = CivilianFaction.new
     end
@@ -21,6 +23,7 @@ class CivilianFactionsController < ApplicationController
     def show
         @civilian_faction = CivilianFaction.find(params[:id])
         @civilian_faction_request = CivilianFactionRequest.find_by(requestor_id: current_user.civilian.id, faction_request_id: @civilian_faction.id)
+        @comment = Comment.new
     end
 
     def update
@@ -51,4 +54,13 @@ class CivilianFactionsController < ApplicationController
             redirect_to civilian_faction_requests_path(@civilian_faction_request.faction_request)
         end
     end
+
+    private
+
+    def civilian?
+        if current_user.allegience != "Civilian"
+            redirect_to user_path(current_user)
+        end
+    end
+
 end

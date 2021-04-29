@@ -10,10 +10,15 @@
 
 <%if @civilian_faction_request && @civilian_faction_request.accepted == false%>
 <%= "Awaiting Acceptance"%>
-<%elsif @civilian_faction_request && @civilian_faction_request.accepted == true%>
-<%=form_for "/new" do |f|%>
-<%=f.label :chat%>
-<%=f.text_area :chat%>
-<%=f.submit%>
+<%elsif @civilian_faction_request && @civilian_faction_request.accepted == true || @civilian_faction.owner_id == @current_user.civilian.id%>
+<%=form_for @comment, :action => "post" do |f|%>
+<%=f.label "Comment"%>
+<%=f.text_area :body%>
+<%=f.hidden_field :civilian_faction_id, value: @civilian_faction.id%>
+<%=f.hidden_field :civilian_id, value: @current_user.id%>
+<%=f.submit "Submit"%>
+<%end%>
+<%@civilian_faction.comments.order(id: :desc).each do |comment|%>
+<%=comment.civilian.name%>:<%=comment.body%><br>
 <%end%>
 <%end%>
