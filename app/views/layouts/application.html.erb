@@ -11,10 +11,12 @@
   </head>
 
   <body>
-  <% if session[:current_user_id] %>
+  
   <nav>
-    You are logged in as: <%= @current_user.username%><br>
-    <%=link_to "logout", logout_path%>
+    <%=link_to "Allegience", '/'%>
+    <% if session[:current_user_id] %> 
+    <%=link_to "Side Missions", jobs_path%> <%=link_to "Log Out", logout_path%>
+    <%=link_to(avatar_for(@current_user, size: 35), user_path(@current_user))%>
   </nav>
   <%else%>
 

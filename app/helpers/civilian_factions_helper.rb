@@ -1,0 +1,2 @@
+module CivilianFactionsHelper
+end

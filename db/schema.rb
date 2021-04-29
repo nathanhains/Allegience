@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_12_020301) do
+ActiveRecord::Schema.define(version: 2021_04_28_225728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,6 +18,16 @@ ActiveRecord::Schema.define(version: 2021_04_12_020301) do
   create_table "acceptances", force: :cascade do |t|
     t.integer "job_response_id"
     t.integer "responder_id"
+    t.integer "heroization_id"
+    t.integer "villainization_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "civilian_faction_requests", force: :cascade do |t|
+    t.integer "faction_request_id"
+    t.integer "requestor_id"
+    t.boolean "accepted", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -25,7 +35,26 @@ ActiveRecord::Schema.define(version: 2021_04_12_020301) do
   create_table "civilian_factions", force: :cascade do |t|
     t.string "name"
     t.integer "owner_id"
-    t.integer "joiner_id"
+    t.integer "requestor_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "civilians", force: :cascade do |t|
+    t.string "name"
+    t.string "allegience", default: "Civilian"
+    t.string "avatar"
+    t.integer "civilian_rank", default: 0
+    t.integer "civilian_level", default: 0
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.text "body"
+    t.integer "commentable_id"
+    t.string "commentable_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -38,9 +67,20 @@ ActiveRecord::Schema.define(version: 2021_04_12_020301) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "heros", force: :cascade do |t|
+  create_table "heroizations", force: :cascade do |t|
+    t.integer "hero_id"
     t.integer "user_id"
+    t.string "avatar"
+    t.integer "hero_rank", default: 0
+    t.integer "hero_level", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "heros", force: :cascade do |t|
     t.string "name"
+    t.string "avatar"
+    t.string "allegience", default: "Hero"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -50,8 +90,21 @@ ActiveRecord::Schema.define(version: 2021_04_12_020301) do
     t.text "description"
     t.integer "requirement"
     t.integer "reward"
+    t.string "power_reward"
     t.integer "requestor_user_id"
     t.integer "responder_user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "powers", force: :cascade do |t|
+    t.string "name"
+    t.integer "powerable_id"
+    t.string "powerable_type"
+    t.integer "heroization_id"
+    t.integer "villainization_id"
+    t.integer "hero_id"
+    t.integer "villain_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -60,11 +113,9 @@ ActiveRecord::Schema.define(version: 2021_04_12_020301) do
     t.string "username"
     t.string "email"
     t.string "password_digest"
+    t.string "avatar"
     t.string "allegience", default: "Civilian"
     t.string "alter_ego", default: "N/A"
-    t.string "power", default: "N/A"
-    t.integer "civilian_rank", default: 0
-    t.integer "powered_rank", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -77,9 +128,21 @@ ActiveRecord::Schema.define(version: 2021_04_12_020301) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "villainizations", force: :cascade do |t|
+    t.integer "villain_id"
+    t.integer "user_id"
+    t.string "avatar"
+    t.integer "villain_rank", default: 0
+    t.integer "villain_level", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "villains", force: :cascade do |t|
     t.integer "user_id"
     t.string "name"
+    t.string "avatar"
+    t.string "allegience", default: "Villain"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

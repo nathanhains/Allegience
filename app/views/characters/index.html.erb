@@ -1,0 +1,13 @@
+<h1>Heros</h2>
+<%@heros.each do |hero|%>
+<%= avatar_for(hero)%>
+<%=hero.name%>
+<%=link_to "Select", selection_path(hero.name)%><br>
+<%end%>
+
+<h1>Villains</h2>
+<%@villains.each do |villain|%>
+<%= avatar_for(villain)%>
+<%=villain.name%>
+<%=link_to "Select", selection_path(villain.name)%><br>
+<%end%>
