@@ -19,6 +19,14 @@ class CommentsController < ApplicationController
             else
                 redirect_to heroization_faction_path(@heroization_faction)
             end
+        elsif params[:comment][:villainization_faction_id]
+            @villainization_faction = VillainizationFaction.find_by(id: params[:comment][:villainization_faction_id])
+            @villainization_faction.villain_comments.build(params.require(:comment).permit(:body, :villainization_faction_id, :villainization_id))
+            if @villainization_faction.save
+                redirect_to villainization_faction_path(@villainization_faction)
+            else
+                redirect_to villainization_faction_path(@villainization_faction)
+            end
         end
     end
 
