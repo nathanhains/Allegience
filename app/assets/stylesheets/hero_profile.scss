@@ -1,0 +1,198 @@
+body {
+    height: 100%;
+    background-color: #333;
+  }
+  header{
+      
+  }
+
+.row{
+    align-items: center;
+}
+
+.avatar-image {
+    border-radius: 50%;
+    border-color: black;
+    border: 2px solid #9fcbf5;
+}
+
+.avatar-civ {
+    border-radius: 50%;
+    border-color: black;
+    border: 2px solid #fff;
+  }
+  .avatar-hero{
+    border-radius: 50%;
+    border-color: black;
+    border: 2px solid #9fcbf5;
+  }
+  .avatar-villain {
+    border-radius: 50%;
+    border-color: black;
+    border: 2px solid #a30000;
+  }
+
+.profile-area{
+    padding: 80px 0;
+}
+
+.card{
+   box-shadow: 0 0 30px rgba(0,0,0,0.5);
+   overflow: hidden; 
+   border-radius: 15px;
+}
+.img1 img{
+    height: 200px;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    width: 100%;
+}
+.img2 img{
+    position: relative;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 1;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 7px solid #fff;
+    margin-top: -80px;
+}
+.card:hover .img2 img{
+    border-color: gold;
+    transition: .7s;
+}
+
+
+
+.main-text{
+    padding: 30px 0;
+    text-align: center;
+}
+.main-text h2{
+    text-transform: uppercase;
+    font-weight: 900;
+    font-size: 20px;
+    margin: 0 0 20px;
+}
+.main-text p{
+    font-size: 16px;
+    padding: 0 35px;
+}
+
+
+.padding {
+    padding: 3rem !important
+}
+
+.user-card-full {
+    overflow: hidden
+}
+
+.m-r-0 {
+    margin-right: 0px
+}
+
+.m-l-0 {
+    margin-left: 0px
+}
+
+.user-card-full .user-profile {
+    border-radius: 5px 0 0 5px
+}
+
+.bg-c-lite-green {
+    background: -webkit-gradient(linear, left top, right top, from(#1fd6ff), to(#0865fc));
+    background: linear-gradient(to right, #1fd6ff, #0865fc);
+}
+
+.bg-c-lite-purple {
+    background: -webkit-gradient(linear, left top, right top, from(#ffffff), to(#000000));
+    background: linear-gradient(to right, #ffffff, #000000)
+}
+
+.user-profile {
+    padding: 20px 0
+}
+
+
+.m-b-25 {
+    margin-bottom: 25px
+}
+
+.img-radius {
+    border-radius: 5px
+}
+
+h6 {
+    font-size: 14px
+}
+
+.card .card-block p {
+    line-height: 25px
+}
+
+
+.b-b-default {
+    border-bottom: 1px solid #e0e0e0
+}
+
+.m-b-20 {
+    margin-bottom: 20px
+}
+
+.p-b-5 {
+    padding-bottom: 5px !important
+}
+
+.card .card-block p {
+    line-height: 25px
+}
+
+.m-b-10 {
+    margin-bottom: 10px
+}
+
+.text-muted {
+    color: #919aa3 !important
+}
+
+.b-b-default {
+    border-bottom: 1px solid #e0e0e0
+}
+
+.f-w-600 {
+    font-weight: 600
+}
+
+.m-b-20 {
+    margin-bottom: 20px
+}
+
+.m-t-40 {
+    margin-top: 20px
+}
+
+.p-b-5 {
+    padding-bottom: 5px !important
+}
+
+.m-b-10 {
+    margin-bottom: 10px
+}
+
+.m-t-40 {
+    margin-top: 20px
+}
+
+.user-card-full .social-link li {
+    display: inline-block
+}
+
+.user-card-full .social-link li a {
+    font-size: 20px;
+    margin: 0 10px 0 0;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out
+}
