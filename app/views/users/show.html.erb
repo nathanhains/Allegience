@@ -1,38 +1,204 @@
-<h1><%=@user.username%>'s Page
-<%if @user == @current_user%>
-<%=link_to "Edit", edit_user_path%></h1> 
-<%end%>
-<%=avatar_for @user%>
-<h2>Allegience: <%=@user.allegience%></h2>
-<h3>Alter Ego: <%=@user.alter_ego%>
-<%if @user.allegience == "Civilian"%>
-    Level:<%= @user.civilian.civilian_level%> Rank: <%= @user.civilian.civilian_rank%></h3>
-<%elsif @user.allegience == "Hero"%>
-    <%@hero = Hero.find_by(name: @user.alter_ego)%>
-    <%@heroization = Heroization.find_by(user_id: @current_user.id, hero_id: @hero.id)%>
-    Level:<%=@heroization.hero_level%> Rank: <%=@heroization.hero_rank%></h3>
-<%elsif @user.allegience == "Villain"%>
-    <%@villain = Villain.find_by(name: @user.alter_ego)%>
-    <%@villainization = Villainization.find_by(user_id: @current_user.id, villain_id: @villain.id)%>
-    Level:<%=@villainization.villain_level%> Rank:<%=@villainization.villain_level%>
-<%end%>
-<h2>Aliases:</h2>
-<%if @user.allegience != "Civilian"%>
-    <%=@user.civilian.name%> level <%=@user.civilian.civilian_level%> rank <%=@user.civilian.civilian_rank%>
-    <%=link_to "Switch Allegience", user_allegience_path(@user.civilian.name)%><br>
-<%end%>
-<%@user.heroizations.each do |heroization|%>
-    <%if heroization.hero.name != @user.alter_ego%>
-        <%=heroization.hero.name%> level <%=heroization.hero_level%> rank <%=heroization.hero_rank%>
-        <%=link_to "Switch Allegience", user_allegience_path(heroization.hero.name)%><br>
-    <%end%>
-<%end%>
-<%@user.villainizations.each do |villainization|%>
-    <%if villainization.villain.name != @user.alter_ego%>
-        <%=villainization.villain.name%> level <%=villainization.villain_level%> rank <%=villainization.villain_rank%>
-        <%=link_to "Switch Allegience", user_allegience_path(villainization.villain.name)%><br>
-    <%end%>
-<%end%>
-<%if (@user.heros.count + @user.villains.count) < 4%>
-    <%=link_to "Add a Character", roster_path%>
+
+<main role="main">
+
+<%if @show_civilian%>
+<section class="jumbotron text-center mt-3">
+        <div class="container">
+
+        <div class="row container d-flex justify-content-center">
+            <div class="col-xl-6 col-md-12">
+                <div class="card user-card-full">
+                    <div class="row m-l-0 m-r-0">
+                        <div class="col-sm-4 bg-c-lite-purple user-profile">
+                            <div class="card-block text-center text-white">
+                                <div class="m-b-25 mt-3"> <div class = "avatar"><%=avatar_civ @user.civilian%></div></div>
+                                <h6 class="f-w-600"><%=@user.username%></h6>
+                                <h6>as</h6>
+                                <p><%=@user.civilian.name%></p> <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="card-block">
+                                <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <p class="m-b-10 f-w-600">Allegience</p>
+                                        <h6 class="text-muted f-w-400"><%=@user.civilian.allegience%></h6>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="m-b-10 f-w-600">Experience</p>
+                                            <h6 class="text-muted f-w-400">Level <%= @user.civilian.civilian_level%></h6>
+                                            <h6 class="text-muted f-w-400">Rank <%= @user.civilian.civilian_rank%></h6>
+                                    </div>
+                                </div>
+                                <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Powers</h6>
+                                <p class="m-b-10 f-w-600">N/A</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        </div>
+      </section>
+
+    <%else%>
+      <section class="jumbotron text-center mt-3">
+        <div class="container">
+
+        <div class="row container d-flex justify-content-center">
+            <div class="col-xl-6 col-md-12">
+                <div class="card user-card-full">
+                    <div class="row m-l-0 m-r-0">
+                        <div class="col-sm-4 bg-c-lite-green user-profile">
+                            <div class="card-block text-center text-white">
+                                <div class="m-b-25 mt-3"> <div class = "avatar"><%=avatar_for @user%></div></div>
+                                <h6 class="f-w-600"><%=@user.username%></h6>
+                                <h6>as</h6>
+                                <p><%=@user.alter_ego%></p> <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+                            </div>
+                            <%if @user == @current_user && @user.allegience == "Civilian"%>
+                                <%=link_to "Edit", edit_user_path, class: "btn btn-sm"%></h1> 
+                            <%elsif @user == @current_user && @user.allegience == "Hero" || @user.allegience == "Villain"%>
+                                <%=link_to "Retire", retire_path(@user.alter_ego), class: "btn btn-sm"%></h1> 
+                            <%end%>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="card-block">
+                                <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <p class="m-b-10 f-w-600">Allegience</p>
+                                        <h6 class="text-muted f-w-400"><%=@user.allegience%></h6>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="m-b-10 f-w-600">Experience</p>
+                                        <%if @user.allegience == "Civilian"%>
+                                            <h6 class="text-muted f-w-400">Level <%= @user.civilian.civilian_level%></h6>
+                                            <h6 class="text-muted f-w-400">Rank <%= @user.civilian.civilian_rank%></h6>
+                                        <%elsif @user.allegience == "Hero"%>
+                                            <%@hero = Hero.find_by(name: @user.alter_ego)%>
+                                            <%@heroization = Heroization.find_by(user_id: @current_user.id, hero_id: @hero.id)%>
+                                            <h6 class="text-muted f-w-400">Level <%=@heroization.hero_level%></h6>
+                                            <h6 class="text-muted f-w-400">Rank <%=@heroization.hero_rank%></h6>
+                                        <%elsif @user.allegience == "Villain"%>
+                                            <%@villain = Villain.find_by(name: @user.alter_ego)%>
+                                            <%@villainization = Villainization.find_by(user_id: @current_user.id, villain_id: @villain.id)%>
+                                            <h6 class="text-muted f-w-400">Level <%=@villainization.villain_level%></h6>
+                                            <h6 class="text-muted f-w-400">Rank <%=@villainization.villain_rank%></h6>
+                                        <%end%>
+                                    </div>
+                                </div>
+                                <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Powers</h6>
+                                <%if @user.allegience == "Civilian"%>
+                                <p class="m-b-10 f-w-600">N/A</p>
+                                <%else%>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <p class="m-b-10 f-w-600">Default</p>
+                                        <%if @user.allegience == "Hero"%>
+                                            <%@hero = Hero.find_by(name: @user.alter_ego)%>
+                                            <h6 class="text-muted f-w-400"><%=@hero.power.name%></h6>
+                                        <%elsif @user.allegience == "Villain"%>
+                                            <%@villain = Villain.find_by(name: @user.alter_ego)%>
+                                            <h6 class="text-muted f-w-400"><%=@villain.power.name%></h6>
+                                            <%end%>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <p class="m-b-10 f-w-600">Earned</p>
+                                        <%if @user.allegience == "Hero"%>
+                                            <%@hero = Hero.find_by(name: @user.alter_ego)%>
+                                            <%@heroization = Heroization.find_by(user_id: @current_user.id, hero_id: @hero.id)%>
+                                            <%if @heroization.powers == []%>
+                                                <h6 class="text-muted f-w-400">Unlocked through Story Mode</h6>
+                                            <%else%>
+                                                <%@heroization.powers.each do |power|%>
+                                                    <h6 class="text-muted f-w-400"><%=power.name%></h6>
+                                                <%end%>
+                                            <%end%>
+                                        <%elsif @user.allegience == "Villain"%>
+                                            <%@villain = Villain.find_by(name: @user.alter_ego)%>
+                                            <%@villainization = Villainization.find_by(user_id: @current_user.id, villain_id: @villain.id)%>
+                                            <%if @villainization.powers == []%>
+                                                <h6 class="text-muted f-w-400">Unlocked through Story Mode</h6>
+                                            <%else%>
+                                                <%@villainization.powers.each do |power|%>
+                                                    <h6 class="text-muted f-w-400"><%=power.name%></h6>
+                                                <%end%>
+                                            <%end%>
+                                        <%end%>
+                                    </div>
+                                </div>
+                                <%end%>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        </div>
+      </section>
+        <div class="profile-area">
+            <div class="container">
+                <div class="row">
+                <%if @user.allegience != "Civilian"%>
+                    <div class="col-sm-3">
+                        <div class="card">
+                            <div class="img1"><%=image_tag("standard.png")%></div>
+                            <div class="img2"><%=image_tag(@user.civilian.avatar.to_s)%></div>
+                            <div class="main-text">
+                                <h2><%=@user.civilian.name%> <%=@user.civilian.civilian_level%>/<%=@user.civilian.civilian_rank%></h2>
+                                <p><%=link_to "Switch Allegience", user_allegience_path(@user.civilian.name), class: "btn btn-sm btn-secondary"%></p>
+                                </div>
+                            <div class="socials">
+                            </div>
+                        </div>
+                    </div> 
+                <%end%>
+                 <%@user.heroizations.each do |heroization|%>
+                    <%if heroization.hero.name != @user.alter_ego%> 
+                        <div class="col-sm-3">
+                        <div class="card">
+                            <div class="img1"><%=image_tag("blue.jpeg")%></div>
+                            <div class="img2"><%=image_tag(heroization.hero.avatar.to_s)%></div>
+                            <div class="main-text">
+                                <h2><%=heroization.hero.name%> <%=heroization.hero_level%>/<%=heroization.hero_rank%></h2>
+                                <p><%=link_to "Switch Allegience", user_allegience_path(heroization.hero.name), class: "btn btn-sm btn-primary"%></p>
+                                </div>
+                            <div class="socials">
+                            </div>
+                        </div>
+                    </div> 
+                    <%end%>
+                    <%end%>
+                     <%@user.villainizations.each do |villainization|%>
+                    <%if villainization.villain.name != @user.alter_ego%> 
+                        <div class="col-sm-3">
+                        <div class="card">
+                            <div class="img1"><%=image_tag("red.jpeg")%></div>
+                            <div class="img2"><%=image_tag(villainization.villain.avatar.to_s)%></div>
+                            <div class="main-text">
+                                <h2><%=villainization.villain.name%> <%=villainization.villain_level%>/<%=villainization.villain_rank%></h2>
+                                <p><%=link_to "Switch Allegience", user_allegience_path(villainization.villain.name), class: "btn btn-sm btn-danger"%></p>
+                                </div>
+                            <div class="socials">
+                            </div>
+                        </div>
+                    </div> 
+                    <%end%>
+                    <%end%>
+                    <%if (@user.heros.count + @user.villains.count) < 4%>
+                    <div class="col-sm-3">
+                        <div class="card">
+                        <%=link_to "Add a Character", roster_path, class: "btn btn-md btn-light"%>
+                    <%end%>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 <%end%>
