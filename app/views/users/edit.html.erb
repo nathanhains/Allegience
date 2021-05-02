@@ -1,34 +1,42 @@
-<% if @user.errors.any? %>
-  <div id="error_explanation">
-    <h2>
-      <%= pluralize(@user.errors.count, "error") %>
-      :
-    </h2>
+<body class="text-center">
+    <div class="cover-container absoluted-flex h-100 p-3 mx-auto flex-column">
+      <header class="masthead mb-auto">
+      <%=link_to image_tag('logo_transparent_background.png', class: "mt-4 mb-4", height: "150"), root_path%>
+      </header>
 
-    <ul>
+      <main role="main" class="inner cover">
+           <div class="text-center">
+    <% if @user.errors.any? %>
     <% @user.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
+      <%= msg %><br>
     <% end %>
-    </ul>
+    <%end%>
+    <%= form_for(@user, html: {class: "row g-3", multiport: true}) do |f|%>
+  <div class="row-sm mb-1">
+    <%= f.label :username, class: "form-label"%>
+    <%=f.text_field :username, autofocus: true, class: "form-control"%><br>
   </div>
-<% end %> 
-
-
-<%= form_for(@user, html: { multiport: true }) do |f|%>
-<%= f.label :username%>
-<%=f.text_field :username%><br>
-
-<%=f.label "Civilian Name"%>
-<%=f.text_field :alter_ego%>
-
-<%= f.label :email%>
-<%=f.text_field :email%><br>
-
-<%= f.label :password%>
-<%=f.password_field :password%><br>
-
-<%=f.label "Civilian Avatar"%>
-<%= f.file_field :avatar %>
-
-<%=f.submit "Save Change"%>
+  <div class="row-sm mb-3">
+    <%=f.label "Civilian Name", class: "form-label"%>
+    <%=f.text_field :alter_ego, class: "form-control"%>
+  </div>
+  <div class="row-sm mb-3">
+    <%= f.label :email,class: "form-label"%>
+    <%=f.text_field :email, class: "form-control"%>
+  </div>
+  <div class="row-sm mb-3">
+    <%= f.label :password, class: "form-label"%>
+    <%=f.password_field :password, class: "form-control"%>
+  </div>
+  <div class="row-sm mb-3">
+   <%=f.label "Civilian Avatar", class: "form-label"%>
+   <%= f.file_field :avatar, class: "form-control" %>
+  </div>
+  <div class="col-12">
+    <button type="submit" class="btn btn-md btn-secondary">Save Changes</button>
+  </div>
 <%end%>
+    </div>
+      </main>
+  
+    </div>
