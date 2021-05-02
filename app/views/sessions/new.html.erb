@@ -1,13 +1,29 @@
-<h1>Login</h1>
-<% if flash[:notice] %>
-<h2><%= flash[:notice]%></h2>
-<%end %>
-<%= form_for :user, :url => {:action => "create", :id => @user} do |f|%>
-<label>Username:</label>
-<%=f.text_field :username%><br>
+<body class="text-center">
+    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+      <header class="masthead">
+      
+      </header>
 
-<label>Password:</label>
-<%=f.password_field :password%><br>
-
-<%=f.submit "submit"%>
+      <main role="main" class="inner cover justify-content-center">
+           <div class="text-center h-100">
+           
+    <%= form_for(@user, :url => {:action => "create", :id => @user}, html: {class: "row g-3 justify-content-center", style: "max-width:480px;margin:auto"}) do |f|%>
+    <%if flash[:notice]%>
+           <%=flash[:notice]%>
+           <%end%>
+    <%=link_to image_tag('logo_transparent_background.png', class: "mt-4 mb-4", height: "150"), root_path%>
+  <div class="row-sm mb-1">
+    <%= f.label :username, class: "form-label"%>
+    <%=f.text_field :username, autofocus: true, class: "form-control"%><br>
+  </div>
+  <div class="row-sm mb-3">
+    <%= f.label :password, class: "form-label"%>
+    <%=f.password_field :password, class: "form-control"%>
+  </div>
+  <div class="col-12">
+    <button type="submit" class="btn btn-md btn-secondary">Log In</button>
+  </div>
 <%end%>
+    </div>
+      </main>
+    </div>
