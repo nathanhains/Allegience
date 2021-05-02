@@ -1,34 +1,21 @@
+<div class="mt-4">
 <% if @job.errors.any? %>
-  <div id="error_explanation">
-    <h2>
-      <%= pluralize(@job.errors.count, "error") %>
-      prohibited this post from being saved:
-    </h2>
-
-    <ul>
     <% @job.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
+      <p class="card-text" style="text-align: center"> <%= msg %></p><br>
     <% end %>
-    </ul>
-  </div>
-<% end %> 
-
-
-
+    <%end%>
 <%=form_for(@job) do |f|%>
-
-<%=f.label "Title"%>
-<%=f.text_field :title%>
-
-<%=f.label "Description"%>
-<%=f.text_field :description%>
-
-<%=f.label "Requirement"%>
-<%=f.text_field :requirement%>
-
-<%=f.label "Reward"%>
-<%=f.text_field :reward%>
-
-<%=f.submit "submit"%>
-
+</div>
+<div class="card invisible mt-5" style = "background: transparent;  margin-left: auto;
+    margin-right: auto; width: 50%; height: 80%;">
+<%=image_tag("scroll2.png", class:"card-img center visible")%>
+<div class="card-img-overlay visible center middle mt-2" style="margin: auto">
+    <h5 class="card-body"></h5>
+    <p class="card-text mt-5">Title <%=f.text_field :title, style: "background: transparent;"%></p>
+     <p class="card-text"> Level <%=f.text_field :requirement, style: "background: transparent;"%></p>
+    <p class="card-text"> Description <%=f.text_field :description, style: "background: transparent;"%></p>
+    <p class="card-text">Reward <%=f.text_field :reward, style: "background: transparent;"%></p>
+    <p class="card-text"><%=f.submit "submit", class: "btn btn-lg"%></p>
+  </div>
+</div>
 <%end%>
