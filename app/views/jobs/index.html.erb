@@ -1,25 +1,125 @@
+ <div class="container mt-4">
+            <div class="row"> 
+                <div class="col-md-8">  
+                <%@jobs.each do |job|%>                  
+                    <div class="card img-fluid mb-4" style="width: 45rem; height: 40rem;">
+                    <%=image_tag('brick', class: "card-img-bottom", width: "100%", height: "50%")%>  
+                  
+                     <%=image_tag('help', class: "card-img-overlay", width: "100%", height: "50%")%>  
+                        <div class="card-body">
+                            <h2 class="card-title"style="font-family: 'sans-serif';"><%=job.title%></h2>
+                            <p class="card-text" style="font-family: 'sans-serif';">Requirement: Level <%=job.requirement%></p>
+                            <%if @current_user.allegience == "Civilian"%>
+                              <%=link_to "Read More →", job_path(job), class: "btn btn-secondary"%>
+                            <%elsif @current_user.allegience == "Hero"%>
+                                <%if @hero_acceptance = Acceptance.find_by(job_response_id: job.id, responder_id: @current_user.id, heroization_id: @heroization.id)%>
+                                    <p style="font-family: 'sans-serif';">Completed!</p>
+                                <%else%>
+                                    <%=link_to "Read More →", job_path(job), class: "btn btn-primary"%>
+                                <%end%> 
+                            <%elsif @current_user.allegience == "Villain"%>
+                                <%if @villain_acceptance = Acceptance.find_by(job_response_id: job.id, responder_id: @current_user.id, villainization_id: @villainization.id)%>
+                                    <p style="font-family: 'sans-serif';">Completed!</p>
+                                <%else%>
+                                    <%=link_to "Read More →", job_path(job), class: "btn btn-danger"%>
+                                <%end%> 
+                            <%end%>
 
-<h1>All Side Missions</h1> 
-<%if @current_user.allegience == "Civilian"%>
-<%=link_to "Create Job", new_job_path%>
-<%end%>
-<%@jobs.each do |job|%>
-<h1><%=job.title%></h1>
-<h3>Requirement: lvl.<%=job.requirement%></h3>
-<%if @current_user.allegience == "Hero"%>
-    <%if @hero_acceptance = Acceptance.find_by(job_response_id: job.id, responder_id: @current_user.id, heroization_id: @heroization.id)%>
-    <h2>Completed!</h2>
-    <%else%>
-    <%=link_to "More Info.", job_path(job) %>
-    <%end%>
-<%elsif @current_user.allegience == "Villain"%>
-    <%if @villain_acceptance = Acceptance.find_by(job_response_id: job.id, responder_id: @current_user.id, villainization_id: @villainization.id)%>
-    <h2>Completed!</h2>
-    <%else%>
-    <%=link_to "More Info.", job_path(job) %>
-    <%end%>
-<%else%>
-    <%=link_to "More Info.", job_path(job) %>
-<%end%>
-<%end%>
+                        </div>
+                        <div class="card-footer text-muted">
+                            Posted by
+                            <%=link_to job.requestor_user.username, user_path(job.requestor_user, job.requestor_user.civilian), class:"btn btn-light", style:"font-family: 'sans-serif'"%>
+                        </div>
+                    </div>
+                    <%end%>
+                </div>
+              
+                <div class="col-md-4 Fixed">
+                    <div class="card my-2 ">
+                        <h5 class="card-header">Side Missions</h5>
+                        <div class="card-body">
+                            <div class="row">
+                            <%if @current_user.allegience == "Civilian"%>
+                            <div class="col-md-5">
+                                    <ul class="list-unstyled mb-0">
+                                        <li><a href="#!" class="btn btn-sm btn-secondary mt-2">1</a></li>
+                                        <li><a href="#!" class="btn btn-sm btn-secondary mt-2">2</a></li>
+                                        <li><a href="#!" class="btn btn-sm btn-secondary mt-2">3</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-5">
+                                    <ul class="list-unstyled mb-0">
+                                        <li><a href="#!" class="btn btn-sm btn-secondary mt-2">4</a></li>
+                                        <li><a href="#!" class="btn btn-sm btn-secondary mt-2">5</a></li>
+                                        <li><a href="#!" class="btn btn-sm btn-secondary mt-2">6</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-2">
+                                    <ul class="list-unstyled mb-0">
+                                        <li><a href="#!" class="btn btn-sm btn-secondary mt-2">7</a></li>
+                                        <li><a href="#!" class="btn btn-sm btn-secondary mt-2">8</a></li>
+                                        <li><a href="#!" class="btn btn-sm btn-secondary mt-2">9</a></li>
+                                    </ul>
+                                </div>
+                            <%elsif @current_user.allegience == "Hero"%>
+                            <div class="col-md-5">
+                                    <ul class="list-unstyled mb-0">
+                                        <li><a href="#!" class="btn btn-sm btn-primary mt-2">1</a></li>
+                                        <li><a href="#!" class="btn btn-sm btn-primary mt-2">2</a></li>
+                                        <li><a href="#!" class="btn btn-sm btn-primary mt-2">3</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-5">
+                                    <ul class="list-unstyled mb-0">
+                                        <li><a href="#!" class="btn btn-sm btn-primary mt-2">4</a></li>
+                                        <li><a href="#!" class="btn btn-sm btn-primary mt-2">5</a></li>
+                                        <li><a href="#!" class="btn btn-sm btn-primary mt-2">6</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-2">
+                                    <ul class="list-unstyled mb-0">
+                                        <li><a href="#!" class="btn btn-sm btn-primary mt-2">7</a></li>
+                                        <li><a href="#!" class="btn btn-sm btn-primary mt-2">8</a></li>
+                                        <li><a href="#!" class="btn btn-sm btn-primary mt-2">9</a></li>
+                                    </ul>
+                                </div>
+                            <%elsif @current_user.allegience == "Villain"%>
+                            <div class="col-md-5">
+                                    <ul class="list-unstyled mb-0">
+                                        <li><a href="#!" class="btn btn-sm btn-danger mt-2">1</a></li>
+                                        <li><a href="#!" class="btn btn-sm btn-danger mt-2">2</a></li>
+                                        <li><a href="#!" class="btn btn-sm btn-danger mt-2">3</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-5">
+                                    <ul class="list-unstyled mb-0">
+                                        <li><a href="#!" class="btn btn-sm btn-danger mt-2">4</a></li>
+                                        <li><a href="#!" class="btn btn-sm btn-danger mt-2">5</a></li>
+                                        <li><a href="#!" class="btn btn-sm btn-danger mt-2">6</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-2">
+                                    <ul class="list-unstyled mb-0">
+                                        <li><a href="#!" class="btn btn-sm btn-danger mt-2">7</a></li>
+                                        <li><a href="#!" class="btn btn-sm btn-danger mt-2">8</a></li>
+                                        <li><a href="#!" class="btn btn-sm btn-danger mt-2">9</a></li>
+                                    </ul>
+                                </div>
+                            <%end%>
+                                
+                            </div>
+                        </div>
+                    </div>
+  
+                    <div class="card my-4" style="text-align: center">
+                        <h5 class="card-header" style="bold">Mission Board</h5>
+                        <%if @current_user.allegience == "Civilian"%>
+                        <div class="card-body"><%=link_to "Post a Mission", new_job_path, class: "btn btn-secondary"%></div>
+                        <%else%>
+                        <div class="card-body">Civilian Use Only</div>
+                        <%end%>
+                    </div>
+                </div>
+            </div>
+        </div>
 
