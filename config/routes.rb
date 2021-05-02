@@ -9,10 +9,11 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy'
-  get '/auth/:provider/callback', to: 'sessions#omniauth'
+  get '/auth/google_oauth2/callback', to: 'sessions#omniauth'
 
   get '/roster', to: 'characters#index'
   get '/selection', to: 'characters#create'
+  get '/retire', to: 'characters#destroy'
 
   root 'application#home'
 
