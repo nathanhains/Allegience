@@ -1,13 +1,45 @@
-<h1>Heros</h2>
-<%@heros.each do |hero|%>
-<%= avatar_for(hero)%>
-<%=hero.name%>
-<%=link_to "Select", selection_path(hero.name)%><br>
-<%end%>
-
-<h1>Villains</h2>
-<%@villains.each do |villain|%>
-<%= avatar_for(villain)%>
-<%=villain.name%>
-<%=link_to "Select", selection_path(villain.name)%><br>
-<%end%>
+<div class="profile-area">
+            <div class="container">
+             <section class="jumbotron text-center invisible justify-content-center">
+              <div class= "col" style="height: 10%">
+             <div class="card-img-overlay visible center" style="height: 10%">
+             <h3 class="card-text" style="font-size: 400%; font-family: 'Copperplate'; color: #9fcbf5;">Heroes</h3>
+             </div>
+             </div>
+             </section>
+                <div class="row">
+                <%@heros.each do |hero|%>
+                    <div class="col-sm-3">
+                        <div class="card invisible text-center">
+                            <div class="img2 visible"><%=link_to image_tag(hero.avatar.to_s), selection_path(hero.name)%></div>
+                            <div class="main-text">
+                            <h2 class="visible" style="font-family: 'Fantasy'; color: #9fcbf5;"><%=hero.name%></h2>
+                                </div>
+                            <div class="socials">
+                            </div>
+                        </div>
+                    </div> 
+                <%end%>
+                </div>
+                <section class="jumbotron text-center invisible justify-content-center">
+                <div class= "col"style="height: 10%">
+                    <div class="card-img-overlay visible center" style="height: 10%">
+                        <h3 class="card-text mt-5" style="font-size: 400%; color: #a30000;">Villains</h3>
+                    </div>
+                </div>
+                </section>
+                 <div class="row">
+                <%@villains.each do |villain|%>
+                    <div class="col-sm-3">
+                        <div class="card invisible text-center">
+                            <div class="img2 visible"><%=link_to image_tag(villain.avatar.to_s), selection_path(villain.name)%></div>
+                            <div class="main-text">
+                            <h2 class="visible" style="font-family: 'Fantasy'; color: #a30000;"><%=villain.name%></h2>
+                                </div>
+                            <div class="socials">
+                            </div>
+                        </div>
+                    </div> 
+                <%end%>
+                </div>
+                
