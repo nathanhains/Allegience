@@ -1,15 +1,29 @@
-<h1><%=@job.title%> lvl. <%=@job.requirement%></h1>
-<h2>Requested by: <%= link_to @job.requestor_user.username, user_path(@job.requestor_user)%>
+<div class="card invisible mt-5" style = "background: transparent;  margin-left: auto;
+    margin-right: auto; width: 50%; height: 70%;">
+<%=image_tag("scroll2.png", class:"card-img center visible")%>
+<div class="card-img-overlay visible center middle" style="margin: auto">
+    <h5 class="card-body"></h5>
+    <p class="card-text mt-5"><%=@job.title%> Level <%=@job.requirement%></p>
+    <p class="card-text">Requested by: <%=link_to @job.requestor_user.username, user_path(@job.requestor_user, @job.requestor_user.civilian), class:"btn btn-lg"%></p>
+    <p class="card-text mt-5"><%=@job.description%></p>
+    <p class="card-text">Reward: <%=@job.reward%>points</p>
+    <%if @acceptance%>
+        <p class="card-text mt-5">Completed!<p>
+    <%elsif @current_user.allegience == "Civilian"%>
+        <p class="card-text mt-5">Powered Only!</p>
+    <%else%>
+        <%if @current_user.allegience == "Hero"%>
+            <%= form_for(@job) do |f| %>
+                <p class="card-text mt-5"><%= f.submit "Save", class: "btn btn-lg"%></p>
+            <% end %>
+        <%elsif @current_user.allegience == "Villain"%>
+            <%= form_for(@job) do |f| %>
+                <p class="card-text mt-5"><%= f.submit "Conquer", class: "btn btn-lg"%></p>
+            <% end %>
+        <%end%>
+    <%end%>
+  </div>
+</div>
 
-<h3><%=@job.description%></h3>
-<h3>Reward: <%=@job.reward%>points</h3>
-
-<%if @acceptance%>
-<h2>Completed!</h2>
-<%elsif @current_user.allegience == "Civilian"%>
-<h2>Powered Only!</h2>
-<%else%>
-<%= form_for(@job) do |f| %>
-    <%= f.submit "Accept Job" %>
-<% end %>
-<%end%>
+                        
+                  
