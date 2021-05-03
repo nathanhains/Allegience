@@ -31,8 +31,8 @@
                                             <h6 class="text-muted f-w-400">Rank <%= @user.civilian.civilian_rank%></h6>
                                     </div>
                                 </div>
-                                <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Powers</h6>
-                                <p class="m-b-10 f-w-600">N/A</p>
+                                <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Jobs</h6>
+                                 <p class="m-b-10 f-w-600"><%= link_to "View", jobs_path(id: @user.id), class: "btn btn-sm btn-secondary"%></p>
                             </div>
                         </div>
                     </div>
@@ -91,9 +91,9 @@
                                         <%end%>
                                     </div>
                                 </div>
-                                <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Powers</h6>
+                                <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Jobs</h6>
                                 <%if @user.allegience == "Civilian"%>
-                                <p class="m-b-10 f-w-600">N/A</p>
+                                <p class="m-b-10 f-w-600"><%= link_to "View", jobs_path(id: @user.id), class: "btn btn-sm btn-secondary"%></p>
                                 <%else%>
                                 <div class="row">
                                     <div class="col-sm-6">

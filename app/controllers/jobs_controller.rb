@@ -2,29 +2,39 @@ class JobsController < ApplicationController
     before_action :authentication_required
     def new
         @job = Job.new
+        render :layout => 'job'
     end
 
     def index
-        @jobs = Job.all
+        if params[:format]
+            @jobs = Job.where(requirement: params[:format])
+        elsif params[:id]
+            sort_by_user
+        else
+            @jobs = Job.all
+        end
         find_powered_heroization
+        render :layout => 'job'
     end
 
     def create
         @job = Job.new(required_params)
         @job.requestor_user_id = current_user.id
-        update_civilian_rank
-        if @job.valid? && current_user.save
+        if @job.valid?
+            update_civilian_rank
+            current_user.save
             @job.save
             redirect_to job_path(@job)
             return
         else
-            render :new
+            render :new, :layout => 'job'
         end
     end
 
     def show
         @job = Job.find(params[:id])
         find_powered_acceptance
+        render :layout => 'job'
     end
 
     def update
@@ -41,6 +51,11 @@ class JobsController < ApplicationController
     private
     def required_params
         params.require(:job).permit(:title, :description, :requirement, :reward)
+    end
+
+    def sort_by_user
+        @user = User.find_by(id: params[:id])
+        @jobs = Job.where(requestor_user_id: params[:id])
     end
 
     def update_powered_rank

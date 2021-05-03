@@ -42,67 +42,67 @@
                             <%if @current_user.allegience == "Civilian"%>
                             <div class="col-md-5">
                                     <ul class="list-unstyled mb-0">
-                                        <li><a href="#!" class="btn btn-sm btn-secondary mt-2">1</a></li>
-                                        <li><a href="#!" class="btn btn-sm btn-secondary mt-2">2</a></li>
-                                        <li><a href="#!" class="btn btn-sm btn-secondary mt-2">3</a></li>
+                                        <li><%= link_to "1", jobs_path(1), class: "btn btn-sm btn-secondary mt-2"%></li>
+                                        <li><%= link_to "2", jobs_path(2), class: "btn btn-sm btn-secondary mt-2"%></li>
+                                        <li><%= link_to "3", jobs_path(3), class: "btn btn-sm btn-secondary mt-2"%></li>
                                     </ul>
                                 </div>
                                 <div class="col-md-5">
                                     <ul class="list-unstyled mb-0">
-                                        <li><a href="#!" class="btn btn-sm btn-secondary mt-2">4</a></li>
-                                        <li><a href="#!" class="btn btn-sm btn-secondary mt-2">5</a></li>
-                                        <li><a href="#!" class="btn btn-sm btn-secondary mt-2">6</a></li>
+                                        <li><%= link_to "4", jobs_path(4), class: "btn btn-sm btn-secondary mt-2"%></li>
+                                        <li><%= link_to "5", jobs_path(5), class: "btn btn-sm btn-secondary mt-2"%></li>
+                                        <li><%= link_to "6", jobs_path(6), class: "btn btn-sm btn-secondary mt-2"%></li>
                                     </ul>
                                 </div>
                                 <div class="col-md-2">
                                     <ul class="list-unstyled mb-0">
-                                        <li><a href="#!" class="btn btn-sm btn-secondary mt-2">7</a></li>
-                                        <li><a href="#!" class="btn btn-sm btn-secondary mt-2">8</a></li>
-                                        <li><a href="#!" class="btn btn-sm btn-secondary mt-2">9</a></li>
+                                        <li><%= link_to "7", jobs_path(7), class: "btn btn-sm btn-secondary mt-2"%></li>
+                                        <li><%= link_to "8", jobs_path(8), class: "btn btn-sm btn-secondary mt-2"%></li>
+                                        <li><%= link_to "9", jobs_path(9), class: "btn btn-sm btn-secondary mt-2"%></li>
                                     </ul>
                                 </div>
                             <%elsif @current_user.allegience == "Hero"%>
                             <div class="col-md-5">
                                     <ul class="list-unstyled mb-0">
-                                        <li><a href="#!" class="btn btn-sm btn-primary mt-2">1</a></li>
-                                        <li><a href="#!" class="btn btn-sm btn-primary mt-2">2</a></li>
-                                        <li><a href="#!" class="btn btn-sm btn-primary mt-2">3</a></li>
+                                        <li><%= link_to "1", jobs_path(1), class: "btn btn-sm btn-primary mt-2"%></li>
+                                        <li><%= link_to "2", jobs_path(2), class: "btn btn-sm btn-primary mt-2"%></li>
+                                        <li><%= link_to "3", jobs_path(3), class: "btn btn-sm btn-primary mt-2"%></li>
                                     </ul>
                                 </div>
                                 <div class="col-md-5">
                                     <ul class="list-unstyled mb-0">
-                                        <li><a href="#!" class="btn btn-sm btn-primary mt-2">4</a></li>
-                                        <li><a href="#!" class="btn btn-sm btn-primary mt-2">5</a></li>
-                                        <li><a href="#!" class="btn btn-sm btn-primary mt-2">6</a></li>
+                                        <li><%= link_to "4", jobs_path(4), class: "btn btn-sm btn-primary mt-2"%></li>
+                                        <li><%= link_to "5", jobs_path(5), class: "btn btn-sm btn-primary mt-2"%></li>
+                                        <li><%= link_to "6", jobs_path(6), class: "btn btn-sm btn-primary mt-2"%></li>
                                     </ul>
                                 </div>
                                 <div class="col-md-2">
                                     <ul class="list-unstyled mb-0">
-                                        <li><a href="#!" class="btn btn-sm btn-primary mt-2">7</a></li>
-                                        <li><a href="#!" class="btn btn-sm btn-primary mt-2">8</a></li>
-                                        <li><a href="#!" class="btn btn-sm btn-primary mt-2">9</a></li>
+                                        <li><%= link_to "7", jobs_path(7), class: "btn btn-sm btn-primary mt-2"%></li>
+                                        <li><%= link_to "8", jobs_path(8), class: "btn btn-sm btn-primary mt-2"%></li>
+                                        <li><%= link_to "9", jobs_path(9), class: "btn btn-sm btn-primary mt-2"%></li>
                                     </ul>
                                 </div>
                             <%elsif @current_user.allegience == "Villain"%>
                             <div class="col-md-5">
                                     <ul class="list-unstyled mb-0">
-                                        <li><a href="#!" class="btn btn-sm btn-danger mt-2">1</a></li>
-                                        <li><a href="#!" class="btn btn-sm btn-danger mt-2">2</a></li>
-                                        <li><a href="#!" class="btn btn-sm btn-danger mt-2">3</a></li>
+                                        <li><%= link_to "1", jobs_path(1), class: "btn btn-sm btn-danger mt-2"%></li>
+                                        <li><%= link_to "2", jobs_path(2), class: "btn btn-sm btn-danger mt-2"%></li>
+                                        <li><%= link_to "3", jobs_path(3), class: "btn btn-sm btn-danger mt-2"%></li>
                                     </ul>
                                 </div>
                                 <div class="col-md-5">
                                     <ul class="list-unstyled mb-0">
-                                        <li><a href="#!" class="btn btn-sm btn-danger mt-2">4</a></li>
-                                        <li><a href="#!" class="btn btn-sm btn-danger mt-2">5</a></li>
-                                        <li><a href="#!" class="btn btn-sm btn-danger mt-2">6</a></li>
+                                        <li><%= link_to "4", jobs_path(4), class: "btn btn-sm btn-danger mt-2"%></li>
+                                        <li><%= link_to "5", jobs_path(5), class: "btn btn-sm btn-danger mt-2"%></li>
+                                        <li><%= link_to "6", jobs_path(6), class: "btn btn-sm btn-danger mt-2"%></li>
                                     </ul>
                                 </div>
                                 <div class="col-md-2">
                                     <ul class="list-unstyled mb-0">
-                                        <li><a href="#!" class="btn btn-sm btn-danger mt-2">7</a></li>
-                                        <li><a href="#!" class="btn btn-sm btn-danger mt-2">8</a></li>
-                                        <li><a href="#!" class="btn btn-sm btn-danger mt-2">9</a></li>
+                                        <li><%= link_to "7", jobs_path(7), class: "btn btn-sm btn-danger mt-2"%></li>
+                                        <li><%= link_to "8", jobs_path(8), class: "btn btn-sm btn-danger mt-2"%></li>
+                                        <li><%= link_to "9", jobs_path(9), class: "btn btn-sm btn-danger mt-2"%></li>
                                     </ul>
                                 </div>
                             <%end%>
