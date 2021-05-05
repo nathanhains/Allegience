@@ -1,0 +1,331 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body{
+    background-color: #333;
+	font-family: 'system-ui';
+}
+
+h2{
+    font-size:150%;
+    opacity: 0.65;
+}
+
+.center {
+    display: block;
+    margin-left: 40%;
+    margin-right: auto;
+    width: 50%;
+    height: 100%
+  }
+
+.avatar-civ {
+    border-radius: 50%;
+    border-color: black;
+    border: 2px solid #fff;
+  }
+  .avatar-hero{
+    border-radius: 50%;
+    border-color: black;
+    border: 2px solid #9fcbf5;
+  }
+  .avatar-villain {
+    border-radius: 50%;
+    border-color: black;
+    border: 2px solid #a30000;
+  }
+
+.container{
+    width: 500px;
+    margin: auto;
+}
+
+.chat{
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    overflow: hidden; 
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    background: #f1f0e8;
+}
+
+.chat-header {
+    display: flex;
+}
+
+.profile-civ {
+    width: 100%;
+    background-image: linear-gradient(43deg, white 0%, gray 46%, #000000 100%);
+    display: flex;
+    align-items: center;
+    height: 100px;
+    padding: 0px 10px;
+    position: relative;
+}
+
+.profile-civ .pp-civ{
+    width: 50px;
+    display: inline-block;
+    border-radius: 50%;
+    border-color: black;
+    border: 2px solid #fff;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.profile-civ .arrow {
+    display: inline-block;
+    width: 30px;
+    position: absolute;
+    top: 19px;
+}
+
+.profile-civ h2{
+    display: inline-block;
+    line-height: 60px;
+    color: #fff;
+    font-size: 20px;
+}
+
+.profile-civ span{
+    color: black;
+    position: absolute;
+    left: 100px;
+    font-size: 20px;
+    opacity: 0.65;
+}
+
+.right .icon {
+    display: inline-block;
+    width: 25px;
+    margin-left: 10px;
+}
+
+.profile-civ .left {
+    flex: 1;
+}
+
+.profile-hero {
+    width: 100%;
+    background-image: linear-gradient(43deg, white 0%, #9fcbf5 46%, #0865fc 100%);
+    display: flex;
+    align-items: center;
+    height: 100px;
+    padding: 0px 10px;
+    position: relative;
+}
+
+.profile-hero .pp-hero{
+    width: 50px;
+    display: inline-block;
+    border-radius: 50%;
+    border-color: black;
+    border: 2px solid #9fcbf5;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.profile-hero .arrow {
+    display: inline-block;
+    width: 30px;
+    position: absolute;
+    top: 19px;
+}
+
+.profile-hero h2{
+    display: inline-block;
+    line-height: 60px;
+    color: #fff;
+    font-size: 20px;
+}
+
+.profile-hero span{
+    color: white;
+    position: absolute;
+    left: 100px;
+    font-size: 20px;
+}
+
+.profile-hero .left {
+    flex: 1;
+}
+
+.profile-villain {
+    width: 100%;
+    background-image: linear-gradient(43deg, #8a0000 0%, #ff0505 46%, white 100%);
+    display: flex;
+    align-items: center;
+    height: 100px;
+    padding: 0px 10px;
+    position: relative;
+}
+
+.profile-villain .pp-villain{
+    width: 50px;
+    display: inline-block;
+    border-radius: 50%;
+    border-color: black;
+    border: 2px solid #a30000;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.profile-villain .arrow {
+    display: inline-block;
+    width: 30px;
+    position: absolute;
+    top: 19px;
+}
+
+.profile-villain h2{
+    display: inline-block;
+    line-height: 60px;
+    color: #fff;
+    font-size: 20px;
+}
+
+.profile-villain span{
+    color: white;
+    position: absolute;
+    left: 100px;
+    font-size: 20px;
+}
+
+.profile-villain .left {
+    flex: 1;
+}
+
+.chat-box{
+    background: url(../images/blue.jpeg);
+    background-attachment: fixed;
+    padding-left: 20px;
+    overflow-y: scroll;
+    flex: 1;
+}
+
+.chat-r {
+    display: flex;
+}
+
+.chat-r .sp {
+    flex: 1;
+}
+
+.chat-l {
+    display: flex;
+}
+
+.chat-l .sp {
+    flex: 1;
+}
+
+.chat-box .mess {
+    max-width: 300px;
+    background: #F7FCF6;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 20px 0px;
+    cursor: pointer;
+}
+
+.chat-box .mess p{
+    word-break: break-all;
+    font-size: 18px;
+}
+
+.chat-box .mess-r{
+    background: lightgray;
+}
+
+.chat-box .emoji {
+    width: 20px;
+}
+
+.chatbox .check {
+    float: right;
+}
+
+.chatbox .check img{
+    width: 20px;
+}
+
+.chat-box .check span{
+    color: #888;
+    font-size: 12px;
+    font-weight: 700px;
+}
+
+*::-webkit-scrollbar {
+    width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: #aaa;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.chat-footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 60px;
+    position: relative;
+}
+
+.chat-footer textarea {
+    display: block;
+    flex: 1;
+    width: 100%;
+    height: 50px;
+    border-radius: 60px;
+    margin: 5px;
+    padding: 10px; 
+    outline: none; 
+    font-size: 19px;
+    padding-left: 40px;
+    padding-right: 90px;
+    border: 2px solid #ccc;
+    color: #555;
+    resize: none;
+    overflow:hidden
+}
+
+.chat-footer .mic {
+    display: block;
+    margin-right: 20px;
+}
+
+.chat-footer .emo  {
+    display: block;
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    left: 10px;
+    top: 12px;
+}
+
+.chat-footer .icons {
+    position: absolute;
+    right: 70px;
+    top: 14px;
+}
+
+.chat-footer .icons img{
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    margin-left: 5px;
+}
+

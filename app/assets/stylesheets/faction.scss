@@ -1,0 +1,125 @@
+.scrolling-wrapper{
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
+body{
+    background-color: #333;
+	font-family: 'system-ui';
+}
+.avatar-civ {
+    border-radius: 50%;
+    border-color: black;
+    border: 2px solid #fff;
+  }
+  .avatar-hero{
+    border-radius: 50%;
+    border-color: black;
+    border: 2px solid #9fcbf5;
+  }
+  .avatar-villain {
+    border-radius: 50%;
+    border-color: black;
+    border: 2px solid #a30000;
+  }
+
+h1{
+	font-weight: 800;
+    font-size: 3em;
+    color:white;
+}
+
+.subtitle{
+	font-size: 1.25em;
+}
+
+::placeholder {
+    color: white;
+ }
+
+.card-block{
+	height: 250px;
+	background-color: #fff;
+	border: none;
+	background-position: center;
+	background-size: cover;
+	transition: all 0.2s ease-in-out !important;
+	border-radius: 24px;
+	&:hover{
+		transform: translateY(-5px);
+		box-shadow: none;
+	}
+}
+
+.card-1{
+	background-color: #ffffff;
+background-image: linear-gradient(43deg, #000000 0%, #ffffff 46%, #000000 100%);
+}
+
+.card-1 ::placeholder {
+    color: black;
+ }
+
+.card-2{
+	background-color: #1fd6ff;
+background-image: linear-gradient(43deg, #1fd6ff 0%, #0865fc 46%, #1fd6ff 100%);
+}
+
+.card-3{
+	background-color: #1fd6ff;
+background-image: linear-gradient(43deg, #8a0000 0%, #ff0505 46%, #8a0000 100%);
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    height: 100%
+  }
+
+  .img2 img{
+    position: relative;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 1;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    margin-top: 0px;
+  }
+
+  .img3 img{
+    position: relative;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 1;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 5px solid #a30000;
+    margin-top: 0px;
+  }
+
+  .img4 img{
+    position: relative;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 1;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 5px solid #9fcbf5;
+    margin-top: 0px;
+  }
+
+
+  h3{
+    opacity: 0.65;
+    font-size: 20px;
+  }
