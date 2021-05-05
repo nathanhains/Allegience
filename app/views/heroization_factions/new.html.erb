@@ -1,5 +1,12 @@
-<%=form_for(@heroization_faction) do |f|%>
-<%=f.label :name%>
-<%=f.text_field :name%>
-<%=f.submit "Save Faction"%>
-<%end%>
+<%find_user_heroization%>
+<div class="card card-block card-2 mt-5" style="text-align: center; width: 450px; left: 32%">
+    <div class="img4 visible mt-2"><%=image_tag(@heroization.hero.avatar.to_s)%></div>
+        <div class="main-text">
+        <%=form_for(@heroization_faction) do |f|%>
+        <h2 class="visible mt-3" style="font-family: 'Fantasy';"><%=f.text_field :name, style: "background: transparent; color:white;", placeholder:"         Faction Name"%></h2>
+        <h3 class="visible" style="font-family: 'Fantasy'; opacity:100;"><%=f.submit "Save Faction", class: "btn btn-primary"%></h3>
+        <%end%>
+            </div>
+        <div class="socials">
+        </div>
+    </div>
