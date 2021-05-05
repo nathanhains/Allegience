@@ -1,0 +1,16 @@
+        <div class="row-sm mb-1">
+        <%= f.label :username, class: "form-label"%>
+        <%=f.text_field :username, autofocus: true, class: "form-control"%><br>
+      </div>
+      <div class="row-sm mb-3">
+        <%=f.label "Civilian Name", class: "form-label"%>
+        <%=f.text_field :alter_ego, class: "form-control"%>
+      </div>
+      <div class="row-sm mb-3">
+        <%= f.label :email,class: "form-label"%>
+        <%=f.text_field :email, class: "form-control"%>
+      </div>
+      <div class="row-sm mb-3">
+        <%= f.label :password, class: "form-label"%>
+        <%=f.password_field :password, class: "form-control"%>
+      </div>
