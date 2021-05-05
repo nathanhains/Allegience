@@ -1,8 +1,22 @@
-<h1>All Hero Factions</h1> 
-<%if @current_user.allegience == "Hero"%>
-<%=link_to "Create Faction", new_heroization_faction_path%>
-<%end%><br>
-
-<%@heroization_factions.each do |heroization_faction|%>
-<%=link_to heroization_faction.name, heroization_faction_path(heroization_faction)%>
-<%end%>
+<%find_user_heroization%>
+<div class="container-fluid">
+    <h1 class="mt-5">Hero Factions</h1>
+        <p class="subtitle"><%=link_to "My factions", heroization_factions_path(id: @heroization.id), class: "btn btn-primary"%>
+		<%=link_to "Create a Faction", new_heroization_faction_path, class: "btn btn-primary"%></p>
+    <div class="scrolling-wrapper row flex-row flex-nowrap mt-4 pb-4 pt-2">
+			<%@heroization_factions.each do |faction|%>
+			<div class="col-5">
+				<div class="card card-block card-2" style="text-align: center">
+                <div class="img4 visible mt-2"><%=image_tag(faction.owner.hero.avatar.to_s)%></div>
+                            <div class="main-text">
+                            <h2 class="visible" style="font-family: 'Fantasy'; color: white;"><%=faction.name%></h2>
+                            <h3 class="visible" style="font-family: 'Fantasy';"><%=faction.heroization_faction_requests.where(accepted: true).count%> members</h3>
+                            <h3 class="visible mt-2" style="font-family: 'Fantasy';"><%=link_to "View", heroization_faction_path(faction), class: "btn btn-lg"%></h3>
+                                </div>
+                            <div class="socials">
+                            </div>
+                </div>
+			</div>
+            <%end%>
+    </div>
+</div>
