@@ -12,9 +12,9 @@
 <div class="card-img-overlay visible center middle mt-2" style="margin: auto">
     <h5 class="card-body"></h5>
     <p class="card-text mt-5">Title <%=f.text_field :title, style: "background: transparent;"%></p>
-     <p class="card-text"> Level <%=f.text_field :requirement, style: "background: transparent;"%></p>
+     <p class="card-text"> Level <%=f.select :requirement, Job::LEVELS, style: "background: transparent;"%></p>
     <p class="card-text"> Description <%=f.text_field :description, style: "background: transparent;"%></p>
-    <p class="card-text">Reward <%=f.text_field :reward, style: "background: transparent;"%></p>
+    <p class="card-text">Reward <%=f.select :reward, Job::REWARDS, style: "background: transparent;"%></p>
     <p class="card-text"><%=f.submit "submit", class: "btn btn-lg"%></p>
   </div>
 </div>

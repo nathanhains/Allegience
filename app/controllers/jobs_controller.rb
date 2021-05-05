@@ -7,11 +7,14 @@ class JobsController < ApplicationController
 
     def index
         if params[:format]
-            @jobs = Job.where(requirement: params[:format])
-        elsif params[:id]
+            @jobs = Job.all.where(requirement: params[:format]).where.not(id: Job::STORY_EXCLUSION)
+        elsif params[:user_id]
             sort_by_user
+        elsif params[:story]
+            @jobs = Job.where(id: Job::STORY_EXCLUSION)
+            @story = ""
         else
-            @jobs = Job.all
+            @jobs = Job.where.not(id: Job::STORY_EXCLUSION)
         end
         find_powered_heroization
         render :layout => 'job'
@@ -34,6 +37,7 @@ class JobsController < ApplicationController
     def show
         @job = Job.find(params[:id])
         find_powered_acceptance
+        @exclusion = Job::STORY_EXCLUSION
         render :layout => 'job'
     end
 
@@ -43,8 +47,13 @@ class JobsController < ApplicationController
         if @acceptance
             @acceptance.save
             update_powered_rank
-            redirect_to jobs_path
-            return
+            if Job.where(id: Job::STORY_EXCLUSION).include?(Job.find_by(id:params[:id]))
+                redirect_to jobs_path(story: "story")
+                return
+            else
+                redirect_to jobs_path
+                return
+            end
         end
     end
 
@@ -54,8 +63,8 @@ class JobsController < ApplicationController
     end
 
     def sort_by_user
-        @user = User.find_by(id: params[:id])
-        @jobs = Job.where(requestor_user_id: params[:id])
+        @user = User.find_by(id: params[:user_id])
+        @jobs = Job.where(requestor_user_id: params[:user_id])
     end
 
     def update_powered_rank
@@ -63,17 +72,31 @@ class JobsController < ApplicationController
             @hero = Hero.find_by(name: current_user.alter_ego)
             @heroization = Heroization.find_by(user_id: current_user.id, hero_id: @hero.id)
             @heroization.hero_rank += @job.reward
-            if @heroization.hero_rank%10 == 0 && @heroization.hero_rank<=10
-                @heroization.hero_level += 1
+            if @job.power_reward_hero != nil
+                @heroization.powers << Power.find_by(name: @job.power_reward_hero)
             end
+            Job::LEVELS.each do |level|
+                if @heroization.hero_rank >= (level*10) && @heroization.hero_rank<= (level*10+9) && @heroization.hero_level != level
+                    @heroization.hero_level += 1
+                elsif @heroization.hero_rank>=100 && @heroization.hero_rank<=109 && @heroization.hero_rank != 10
+                    @heroization.hero_level += 1
+                end
+            end 
             @heroization.save
         elsif current_user.allegience == "Villain"
             @villain = Villain.find_by(name: current_user.alter_ego)
             @villainization = Villainization.find_by(user_id: current_user.id, villain_id: @villain.id)
             @villainization.villain_rank += @job.reward
-            if @villainization.villain_rank%10 == 0 && @villainization.villain_rank<=10
-                @villainization.villain_level += 1
+            if @job.power_reward_villain != nil
+                @villainization.powers << Power.find_by(name: @job.power_reward_villain)
             end
+            Job::LEVELS.each do |level|
+                if @villainization.villain_rank >= (level*10) && @villainization.villain_rank<= (level*10+9) && @villainization.villain_level != level
+                    @villainization.villain_level += 1
+                elsif @villainization.villain_rank>=100 && @villainization.villain_rank<=109 && @villainization.villain_level != 10
+                    @villainization.villain_level += 1
+                end
+            end 
             @villainization.save
         end
     end
@@ -94,7 +117,7 @@ class JobsController < ApplicationController
         elsif current_user.allegience == "Villain"
             @villain = Villain.find_by(name: current_user.alter_ego)
             @villainization = Villainization.find_by(user_id: current_user.id, villain_id: @villain.id)
-            @acceptance = Acceptance.find_by(job_response_id: @job.id, responder_id: @current_user.id, villainization_id: @villainization.id)
+            @acceptance = Acceptance.find_by(job_response_id: @job.id, responder_id: current_user.id, villainization_id: @villainization.id)
         end
     end
 
@@ -114,6 +137,7 @@ class JobsController < ApplicationController
             @heroization = Heroization.find_by(user_id: current_user.id, hero_id: @hero.id)
             if @heroization.hero_level<@job.requirement
                 redirect_to job_path(@job)
+                flash[:message] = "LOCKED"
                 return
             else
                 @acceptance = Acceptance.new(responder_id: current_user.id, job_response_id: @job.id, heroization_id: @heroization.id)
@@ -122,6 +146,7 @@ class JobsController < ApplicationController
             @villain = Villain.find_by(name: current_user.alter_ego)
             @villainization = Villainization.find_by(user_id: current_user.id, villain_id: @villain.id)
             if @villainization.villain_level<@job.requirement
+                flash[:message] = "LOCKED"
                 redirect_to job_path(@job)
                 return
             else

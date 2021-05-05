@@ -58,6 +58,12 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: block;
 }
 
+.card-body {
+  min-height: 300px;
+  min-width: 300px;
+  margin-right: 5px;
+}
+
 
 .jumbotron{
   background: none;
@@ -79,8 +85,8 @@ body {
 }
 
 .card-text{
-  font-family: Fantasy;
-  font-size: 200%;
+  font-family: 'Chalkduster', 'fantasy';
+  font-size: 150%;
 }
 
 .special{

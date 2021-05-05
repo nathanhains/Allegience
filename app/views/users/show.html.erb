@@ -32,7 +32,7 @@
                                     </div>
                                 </div>
                                 <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Jobs</h6>
-                                 <p class="m-b-10 f-w-600"><%= link_to "View", jobs_path(id: @user.id), class: "btn btn-sm btn-secondary"%></p>
+                                 <p class="m-b-10 f-w-600"><%= link_to "View", user_jobs_path(@user.id), class: "btn btn-sm btn-secondary"%></p>
                             </div>
                         </div>
                     </div>
@@ -60,13 +60,26 @@
                                 <p><%=@user.alter_ego%></p> <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
                             </div>
                             <%if @user == @current_user && @user.allegience == "Civilian"%>
-                                <%=link_to "Edit", edit_user_path, class: "btn btn-sm"%></h1> 
-                            <%elsif @user == @current_user && @user.allegience == "Hero" || @user.allegience == "Villain"%>
-                                <%=link_to "Retire", retire_path(@user.alter_ego), class: "btn btn-sm"%></h1> 
+                                <%=link_to "Edit", edit_user_path, class: "btn btn-sm btn-secondary"%></h1> 
+                            <%elsif @user == @current_user && @user.allegience == "Hero"%>
+                                <%=link_to "Retire", retire_path(@user.alter_ego), class: "btn btn-sm btn-primary"%></h1>
+                            <%elsif @user == @current_user && @user.allegience == "Villain"%>
+                                <%=link_to "Retire", retire_path(@user.alter_ego), class: "btn btn-sm btn-danger"%></h1>  
                             <%end%>
                         </div>
                         <div class="col-sm-8">
                             <div class="card-block">
+                                <%if @show_hero%>
+                                    <%@show_hero.powers.each do |power|%>
+                                            <h6 class="text-muted f-w-400"><%=power.name%></h6>
+                                    <%end%>
+                                    <%=link_to "Back", user_path(@user), class: "btn btn-sm btn-primary"%></h1>
+                                <%elsif @show_villain%>
+                                    <%@show_villain.powers.each do |power|%>
+                                        <h6 class="text-muted f-w-400"><%=power.name%></h6>
+                                    <%end%>
+                                    <%=link_to "Back", user_path(@user), class: "btn btn-sm btn-danger"%></h1>
+                                <%else%>
                                 <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
                                 <div class="row">
                                     <div class="col-sm-6">
@@ -93,7 +106,7 @@
                                 </div>
                                 <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Jobs</h6>
                                 <%if @user.allegience == "Civilian"%>
-                                <p class="m-b-10 f-w-600"><%= link_to "View", jobs_path(id: @user.id), class: "btn btn-sm btn-secondary"%></p>
+                                <p class="m-b-10 f-w-600"><%= link_to "View", user_jobs_path(@user.id), class: "btn btn-sm btn-secondary"%></p>
                                 <%else%>
                                 <div class="row">
                                     <div class="col-sm-6">
@@ -108,31 +121,28 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <p class="m-b-10 f-w-600">Earned</p>
-                                        <%if @user.allegience == "Hero"%>
-                                            <%@hero = Hero.find_by(name: @user.alter_ego)%>
-                                            <%@heroization = Heroization.find_by(user_id: @current_user.id, hero_id: @hero.id)%>
-                                            <%if @heroization.powers == []%>
-                                                <h6 class="text-muted f-w-400">Unlocked through Story Mode</h6>
-                                            <%else%>
-                                                <%@heroization.powers.each do |power|%>
-                                                    <h6 class="text-muted f-w-400"><%=power.name%></h6>
+                                            <%if @user.allegience == "Hero"%>
+                                                <%@hero = Hero.find_by(name: @user.alter_ego)%>
+                                                <%@heroization = Heroization.find_by(user_id: @current_user.id, hero_id: @hero.id)%>
+                                                <%if @heroization.powers == []%>
+                                                    <h6 class="text-muted f-w-400">Unlocked through Story Mode</h6>
+                                                <%else%>
+                                                    <%=link_to "View", user_path(hero: @heroization.id), class:"btn btn-sm btn-primary"%>
+                                                <%end%>
+                                            <%elsif @user.allegience == "Villain"%>
+                                                <%@villain = Villain.find_by(name: @user.alter_ego)%>
+                                                <%@villainization = Villainization.find_by(user_id: @current_user.id, villain_id: @villain.id)%> 
+                                                <%if @villainization.powers == []%>
+                                                    <h6 class="text-muted f-w-400">Unlocked through Story Mode</h6>
+                                                <%else%>
+                                                    <%=link_to "View", user_path(villain: @villainization.id), class:"btn btn-sm btn-danger"%>
                                                 <%end%>
                                             <%end%>
-                                        <%elsif @user.allegience == "Villain"%>
-                                            <%@villain = Villain.find_by(name: @user.alter_ego)%>
-                                            <%@villainization = Villainization.find_by(user_id: @current_user.id, villain_id: @villain.id)%>
-                                            <%if @villainization.powers == []%>
-                                                <h6 class="text-muted f-w-400">Unlocked through Story Mode</h6>
-                                            <%else%>
-                                                <%@villainization.powers.each do |power|%>
-                                                    <h6 class="text-muted f-w-400"><%=power.name%></h6>
-                                                <%end%>
-                                            <%end%>
-                                        <%end%>
                                     </div>
                                 </div>
                                 <%end%>
                             </div>
+                            <%end%>
                         </div>
                     </div>
                 </div>
@@ -140,6 +150,7 @@
         </div>
     </div>
 </div>
+
         </div>
       </section>
         <div class="profile-area">

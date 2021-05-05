@@ -1,10 +1,54 @@
- <div class="container mt-4">
+<%if @story%>
+
+<div class="container mt-4">
+            <div class="row"> 
+                <div class="col-md-8 center">  
+                <%@jobs.each do |job|%>                  
+                    <div class="card img-fluid mb-4" style="width: 45rem; height: 40rem;">
+                    <%=image_tag('story', class: "card-img-bottom", width: "100%", height: "50%")%>  
+                     <%=image_tag('white_allegiance', class: "card-img-overlay", width: "100%", height: "50%")%>  
+                        <div class="card-body">
+                            <h2 class="card-title"style="font-family: 'sans-serif';"><%=job.title%></h2>
+                            <p class="card-text" style="font-family: 'sans-serif';">Requirement: Level <%=job.requirement%></p>
+                            <%if @current_user.allegience == "Civilian" && (job.id == 1 || job.id == 2)%>
+                              <%=link_to "Read More →", job_path(job), class: "btn btn-secondary"%>
+                            <%elsif @current_user.allegience == "Hero"%>
+                                <%if @hero_acceptance = Acceptance.find_by(job_response_id: job.id, responder_id: @current_user.id, heroization_id: @heroization.id)%>
+                                    <p style="font-family: 'sans-serif';">Completed!</p>
+                                <%else%>
+                                    <%@hero = Hero.find_by(name: @current_user.alter_ego)%>
+                                    <%@heroization = Heroization.find_by(user_id: @current_user.id, hero_id: @hero.id)%>
+                                    <%if @heroization.hero_level >= job.requirement%>
+                                        <%=link_to "Read More →", job_path(job), class: "btn btn-primary"%>
+                                    <%end%>
+                                <%end%> 
+                            <%elsif @current_user.allegience == "Villain"%>
+                                <%if @villain_acceptance = Acceptance.find_by(job_response_id: job.id, responder_id: @current_user.id, villainization_id: @villainization.id)%>
+                                    <p style="font-family: 'sans-serif';">Completed!</p>
+                                <%else%>
+                                    <%@villain = Villain.find_by(name: @current_user.alter_ego)%>
+                                    <%@villainization = Villainization.find_by(user_id: @current_user.id, villain_id: @villain.id)%>
+                                    <%if @villainization.villain_level >= job.requirement%>
+                                        <%=link_to "Read More →", job_path(job), class: "btn btn-danger"%>
+                                    <%end%>
+                                <%end%> 
+                            <%end%>
+
+                        </div>
+                        <div class="card-footer text-muted">
+                            Allegiance
+                        </div>
+                    </div>
+                    <%end%>
+                </div>
+
+<%else %>
+<div class="container mt-4">
             <div class="row"> 
                 <div class="col-md-8">  
                 <%@jobs.each do |job|%>                  
                     <div class="card img-fluid mb-4" style="width: 45rem; height: 40rem;">
                     <%=image_tag('brick', class: "card-img-bottom", width: "100%", height: "50%")%>  
-                  
                      <%=image_tag('help', class: "card-img-overlay", width: "100%", height: "50%")%>  
                         <div class="card-body">
                             <h2 class="card-title"style="font-family: 'sans-serif';"><%=job.title%></h2>
@@ -114,7 +158,9 @@
                     <div class="card my-4" style="text-align: center">
                         <h5 class="card-header" style="bold">Mission Board</h5>
                         <%if @current_user.allegience == "Civilian"%>
-                        <div class="card-body"><%=link_to "Post a Mission", new_job_path, class: "btn btn-secondary"%></div>
+                        <div class="card-body"><%=link_to "Post a Mission", new_job_path, class: "btn btn-secondary"%><br>
+                        <%=link_to "My Missions", user_jobs_path(@current_user.id), class: "btn btn-secondary mt-3"%></div>
+
                         <%else%>
                         <div class="card-body">Civilian Use Only</div>
                         <%end%>
@@ -122,4 +168,4 @@
                 </div>
             </div>
         </div>
-
+<%end%>

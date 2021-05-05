@@ -3,10 +3,16 @@ class HeroizationFactionsController < ApplicationController
 
     def new
         @heroization_faction = HeroizationFaction.new
+        render layout: 'faction'
     end
 
     def index
-        @heroization_factions = HeroizationFaction.all
+        if params[:id]
+            @heroization_factions = HeroizationFaction.where(owner_id: params[:id])
+        else
+            @heroization_factions = HeroizationFaction.all
+        end
+        render layout: 'faction'
     end
 
     def create
@@ -17,7 +23,7 @@ class HeroizationFactionsController < ApplicationController
             @heroization_faction.save
             redirect_to heroization_faction_path(@heroization_faction)
         else
-            render :new
+            render :new, layout: 'chat'
         end
     end
 
@@ -26,14 +32,15 @@ class HeroizationFactionsController < ApplicationController
         @heroization_faction = HeroizationFaction.find(params[:id])
         @heroization_faction_request = HeroizationFactionRequest.find_by(requestor_id: @heroization.id, faction_request_id: @heroization_faction.id)
         @hero_comment = Comment.new
+        render layout: 'chat'
     end
 
     def update
+   
         find_user_heroization
         @heroization_faction = HeroizationFaction.find(params[:id])
-        @heroization_faction.requestors << @heroization
-        # @heroization_faction_request = HeroizationFactionRequest.new(requestor_id: current_user.Heroization.id, faction_request_id: @Heroization_faction.id)
-        if @heroization_faction.save
+        @heroization_faction_request = HeroizationFactionRequest.new(requestor_id: @heroization.id, faction_request_id: @heroization_faction.id, description: params[:heroization_faction][:description])
+        if @heroization_faction_request.save
             redirect_to heroization_factions_path
         else
             redirect_to heroization_faction_path(@heroization_faction)
@@ -42,12 +49,13 @@ class HeroizationFactionsController < ApplicationController
 
     def requests
         find_user_heroization
-        @heroization_faction = HeroizationFaction.find_by(params[:id])
-        if @heroization_faction.owner_id == current_user.id
+        @heroization_faction = HeroizationFaction.find_by(id: params[:heroization_faction_id])
+        if @heroization_faction.owner_id == @heroization.id
             @requests = HeroizationFactionRequest.all.where(faction_request_id: @heroization_faction.id, accepted: false)
         else
-            render :show
+            redirect_to heroization_faction_path(@heroization_faction)
         end
+        render layout: 'chat'
     end
 
     def accept

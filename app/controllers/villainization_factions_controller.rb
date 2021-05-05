@@ -3,10 +3,16 @@ class VillainizationFactionsController < ApplicationController
 
     def new
         @villainization_faction = VillainizationFaction.new
+        render layout: 'faction'
     end
 
     def index
-        @villainization_factions = VillainizationFaction.all
+        if params[:id]
+            @villainization_factions = VillainizationFaction.where(owner_id: params[:id])
+        else
+            @villainization_factions = VillainizationFaction.all
+        end
+        render layout: 'faction'
     end
 
     def create
@@ -17,7 +23,7 @@ class VillainizationFactionsController < ApplicationController
             @villainization_faction.save
             redirect_to villainization_faction_path(@villainization_faction)
         else
-            render :new
+            render :new, layout: 'chat'
         end
     end
 
@@ -26,6 +32,7 @@ class VillainizationFactionsController < ApplicationController
         @villainization_faction = VillainizationFaction.find(params[:id])
         @villainization_faction_request = VillainizationFactionRequest.find_by(requestor_id: @villainization.id, faction_request_id: @villainization_faction.id)
         @villain_comment = Comment.new
+        render layout: 'chat'
     end
 
     def update
@@ -42,16 +49,17 @@ class VillainizationFactionsController < ApplicationController
 
     def requests
         find_user_villainization
-        @villainization_faction = villainizationFaction.find_by(params[:id])
-        if @villainization_faction.owner_id == current_user.id
-            @requests = villainizationFactionRequest.all.where(faction_request_id: @villainization_faction.id, accepted: false)
+        @villainization_faction = VillainizationFaction.find_by(params[:id])
+        if @villainization_faction.owner_id == @villainization.id
+            @requests = VillainizationFactionRequest.all.where(faction_request_id: @villainization_faction.id, accepted: false)
         else
             render :show
         end
+        render layout: 'chat'
     end
 
     def accept
-        @villainization_faction_request = villainizationFactionRequest.find_by(requestor_id: params[:format], faction_request_id: params[:villainization_faction_id])
+        @villainization_faction_request = VillainizationFactionRequest.find_by(requestor_id: params[:format], faction_request_id: params[:villainization_faction_id])
         if @villainization_faction_request.update(accepted: true)
             redirect_to villainization_faction_requests_path(@villainization_faction_request.faction_request)
         else

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_29_180005) do
+ActiveRecord::Schema.define(version: 2021_04_29_190106) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,10 +55,6 @@ ActiveRecord::Schema.define(version: 2021_04_29_180005) do
     t.text "body"
     t.integer "civilian_id"
     t.integer "civilian_faction_id"
-    t.integer "heroization_id"
-    t.integer "villainization_id"
-    t.integer "heroization_faction_id"
-    t.integer "villainization_faction_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -75,6 +71,7 @@ ActiveRecord::Schema.define(version: 2021_04_29_180005) do
     t.integer "faction_request_id"
     t.integer "requestor_id"
     t.boolean "accepted", default: false
+    t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -83,6 +80,7 @@ ActiveRecord::Schema.define(version: 2021_04_29_180005) do
     t.string "name"
     t.integer "owner_id"
     t.integer "joiner_id"
+    t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -110,7 +108,8 @@ ActiveRecord::Schema.define(version: 2021_04_29_180005) do
     t.text "description"
     t.integer "requirement"
     t.integer "reward"
-    t.string "power_reward"
+    t.string "power_reward_hero"
+    t.string "power_reward_villain"
     t.integer "requestor_user_id"
     t.integer "responder_user_id"
     t.datetime "created_at", precision: 6, null: false
@@ -138,6 +137,8 @@ ActiveRecord::Schema.define(version: 2021_04_29_180005) do
     t.string "alter_ego", default: "N/A"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "uid"
+    t.string "provider"
   end
 
   create_table "villain_comments", force: :cascade do |t|

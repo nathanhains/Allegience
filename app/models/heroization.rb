@@ -5,7 +5,7 @@ class Heroization < ApplicationRecord
     validates :hero_level, length: {maximum: 10}
 
     has_many :heroization_faction_requests, foreign_key: :requestor_id
-    has_many :heroization_factions, :class_name => "HeroizationFaction", :foreign_key => "owner_id"
+    has_many :heroization_factions, :class_name => "HeroizationFaction", :foreign_key => "owner_id", :dependent => :delete_all
     has_many :faction_requests, through: :heroization_faction_requests
 
     has_many :hero_comments

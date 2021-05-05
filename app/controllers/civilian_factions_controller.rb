@@ -3,10 +3,16 @@ class CivilianFactionsController < ApplicationController
 
     def new
         @civilian_faction = CivilianFaction.new
+        render layout: 'faction'
     end
 
     def index
-        @civilian_factions = CivilianFaction.all
+        if params[:id]
+            @civilian_factions = CivilianFaction.where(owner_id: params[:id])
+        else
+            @civilian_factions = CivilianFaction.all
+        end
+        render layout: 'faction'
     end
 
     def create
@@ -16,7 +22,7 @@ class CivilianFactionsController < ApplicationController
             @civilian_faction.save
             redirect_to civilian_faction_path(@civilian_faction)
         else
-            render :new
+            render :new, layout: 'chat'
         end
     end
 
@@ -24,6 +30,7 @@ class CivilianFactionsController < ApplicationController
         @civilian_faction = CivilianFaction.find(params[:id])
         @civilian_faction_request = CivilianFactionRequest.find_by(requestor_id: current_user.civilian.id, faction_request_id: @civilian_faction.id)
         @comment = Comment.new
+        render layout: 'chat'
     end
 
     def update
@@ -38,12 +45,13 @@ class CivilianFactionsController < ApplicationController
     end
 
     def requests
-        @civilian_faction = CivilianFaction.find_by(params[:id])
+        @civilian_faction = CivilianFaction.find_by(id: params[:civilian_faction_id])
         if @civilian_faction.owner_id == current_user.id
             @requests = CivilianFactionRequest.all.where(faction_request_id: @civilian_faction.id, accepted: false)
         else
             render :show
         end
+        render layout: 'chat'
     end
 
     def accept

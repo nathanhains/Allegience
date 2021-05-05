@@ -4,7 +4,7 @@ class CreateHeroizationFactions < ActiveRecord::Migration[6.1]
       t.string :name
       t.integer :owner_id
       t.integer :joiner_id
-
+      t.string :description
       t.timestamps
     end
   end

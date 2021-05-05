@@ -3,11 +3,11 @@ class Villainization < ApplicationRecord
     belongs_to :villain
     has_many :powers, as: :powerable
 
-    has_many :civilian_faction_requests, foreign_key: :requestor_id
-    has_many :civilian_factions, :class_name => "CivilianFaction", :foreign_key => "owner_id"
-    has_many :faction_requests, through: :civilian_faction_requests
+    has_many :villainization_faction_requests, foreign_key: :requestor_id
+    has_many :villainization_factions, :class_name => "VillainizationFaction", :foreign_key => "owner_id", :dependent => :delete_all
+    has_many :faction_requests, through: :villainization_faction_requests
 
-    has_many :hero_comments
+    has_many :villain_comments
     
     mount_uploader :avatar, AvatarUploader
 end

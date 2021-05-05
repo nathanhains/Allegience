@@ -1,16 +1,21 @@
 class SessionsController < ApplicationController
     before_action :go_home, only: [:new, :create]
+    skip_before_action :verify_authenticity_token
+
     def new
         @user = User.new
+        render :layout => 'form'
     end
 
     def create
-        @user = User.find_by(username: params[:user][:username])
-        if @user && @user.authenticate(params[:user][:password])
-            login(@user)
-            redirect_to user_path(@user)
-        else
-            redirect_to "/login", :notice => "Can't find the user."
+        if params[:user]
+            @user = User.find_by(username: params[:user][:username])
+            if @user && @user.authenticate(params[:user][:password])
+                login(@user)
+                redirect_to user_path(@user)
+            else
+                redirect_to "/login", :notice => "Can't find the user."
+            end
         end
     end
 

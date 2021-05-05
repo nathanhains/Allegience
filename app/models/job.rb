@@ -11,6 +11,10 @@ class Job < ApplicationRecord
     before_validation :make_title_case
 
     private
+    REWARDS = [1,2,3,4,5]
+    LEVELS = [1,2,3,4,5,6,7,8,9]
+    STORY_EXCLUSION = [1,2,3,4,5,6,7,8]
+
     def is_title_case
         if title.split.any?{|w|w[0].upcase != w[0]}
             errors.add(:title, "Title must be in title case")

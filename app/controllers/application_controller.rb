@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
     before_action :current_user
     before_action :go_home, only: :home
     def home
+        render :layout => 'home'
     end
 
     private
@@ -19,7 +20,7 @@ class ApplicationController < ActionController::Base
         end
 
         def login(user)
-            session[:current_user_id] = @user.id
+            session[:current_user_id] = user.id
         end
 
         def logged_in?
@@ -34,13 +35,19 @@ class ApplicationController < ActionController::Base
 
         def maximum_characters
             if (current_user.heros.count+current_user.villains.count>=4)
-                redirect_to profile_path(current_user)
+                redirect_to user_path(current_user)
             end
         end
 
         def go_home
             if logged_in?
                 redirect_to user_path(current_user)
+            end
+        end
+
+        def user_default_avatar(user)
+            File.open('/Users/nathanhains/Development/code/phase3/allegience/allegience/app/assets/images/Unknown.png') do |f|
+                user.avatar = f
             end
         end
 end
