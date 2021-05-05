@@ -1,28 +1,59 @@
-<%=@villainization_faction.name%>
-<%if @villainization_faction.owner_id == @villainization.id%>
-<%=link_to "requests", villainization_faction_requests_path(@villainization_faction)%>
-<%end%><br>
-<%if @villainization_faction.owner_id != @villainization.id && !@villainization_faction_request%>
-<%= form_for(@villainization_faction) do |f| %>
-    <%= f.submit "Join" %>
-<% end %>
-<%end%>
 
-<%if @villainization_faction_request && @villainization_faction_request.accepted == false%>
-<%= "Awaiting Acceptance"%>
-<%elsif @villainization_faction_request && @villainization_faction_request.accepted == true || @villainization_faction.owner_id == @villainization.id%>
-<%=form_for @villain_comment, :action => "post" do |f|%>
-<%=f.label "Comment"%>
-<%=f.text_area :body%>
-<%=f.hidden_field :villainization_faction_id, value: @villainization_faction.id%>
-<%=f.hidden_field :villainization_id, value: @villainization.id%>
-<%=f.submit "Submit"%>
-<%end%>
-
-<%@villainization_faction.villain_comments.order(id: :desc).each do |comment|%>
-<%@villain_name = Villain.find_by(id: comment.villainization.villain_id).name%>
-<%@civilian_name = Civilian.find_by(user_id: comment.villainization.user_id).name%>
-
-<%=@civilian_name%> as <%=@villain_name%>:<%=comment.body%><br> 
-<%end%>
-<%end%>
+    <div class="container mt-5">
+        <div class="chat">
+            <div class="chat-header">
+                <div class="profile-villain">
+                    <%=image_tag(@villainization_faction.owner.villain.avatar.to_s, class:"pp-villain mb-2")%>
+                    <%if @villainization_faction.owner_id == @villainization.id%></span>
+                        <span style="left:300px; opacity: 100;"><%=link_to "Requests", villainization_faction_requests_path(@villainization_faction), class:"btn btn-sm btn-danger"%>
+                    <%elsif @villainization_faction.owner_id != @villainization.id && !@villainization_faction_request%>
+                        <%= form_for(@villainization_faction) do |f| %>
+                            <span style="left:300px; top:35px;"><%= f.submit "Join", class:"btn btn-sm btn-danger" %></span>
+                        <% end %>
+                    <%end%>
+                </div>
+            </div>  
+                <%if @villainization_faction_request && @villainization_faction_request.accepted == false%>
+                <h2 class="center">Pending...</h2>
+                <%elsif @villainization_faction_request && @villainization_faction_request.accepted == true || @villainization_faction.owner_id == @villainization.id%>
+            <div class="chat-box">
+            <%@villainization_faction.villain_comments.order(id: :asc).each do |comment|%>
+            <%if comment.villainization.id == @villainization.id%>
+                <div class="chat-r">
+                    <div class="sp"></div>
+                    <div class="mess mess-r" style="background:#ff0505; opacity:95%; color:white">
+                        <p>
+                        <%=comment.body%>
+                        </p>
+                        <div class="check">
+                        <span style= "color:white"> <%=comment.villainization.villain.name%></span>
+                        </div>
+                    </div>
+                </div>
+            <%else%>
+                <div class="chat-l">
+                    <div class="mess">
+                        <p>
+                            <%=comment.body%>
+                        </p>
+                        <div class="check">
+                            <span><%=comment.villainization.villain.name%></span>
+                        </div>
+                    </div>
+                    <div class="sp"></div>
+                </div>
+                <%end%>
+                <%end%>
+                </div>
+            <div class="chat-footer">
+                <%=form_for @villain_comment, :action => "post" do |f|%>
+                    <%=f.text_area :body, placeholder: "Type a message", autofocus: true%>
+                    <%=f.hidden_field :villainization_faction_id, value: @villainization_faction.id%>
+                    <%=f.hidden_field :villainization_id, value: @villainization.id%>
+                    <%=f.submit "Send", class: "icons btn btn-sm btn-danger"%>
+                <%end%>
+            </div>
+            <%end%>
+            </div>
+        </div>
+    </div>

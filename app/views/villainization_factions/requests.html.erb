@@ -1,11 +1,25 @@
-<%if @villainization_faction.owner_id == @villainization.id%>
-<h3>Requestors:</h3>
-<%@villainization_faction.villainization_faction_requests.each do |request|%>
 
-<%if request.accepted == false%>
-<%@villain_name = Villain.find_by(id: request.requestor.villain_id).name%>
-<%@civilian_name = Civilian.find_by(user_id: request.requestor.user_id).name%>
-<%=@civilian_name%> as <%=@villain_name%> <%=link_to "Accept", villainization_faction_accept_path(@villainization_faction, request.requestor)%>
-<%end%>
-<%end%>
+<%if @villainization_faction.owner_id == @villainization.id%>
+<div class="container mt-5">
+        <div class="chat">
+            <div class="chat-header">
+                <div class="profile-villain">
+                    <%=image_tag(@villainization_faction.owner.villain.avatar.to_s, class:"pp-villain mb-2")%>
+                    <span><%=link_to "Back", villainization_faction_path(@villainization_faction), class: "btn btn-md", style:"color:white"%></span>
+                </div>
+            </div> 
+            <div class="chat-box">
+                <div class="center">
+                <h2 style=" display: block; margin-left: -5%; margin-right: auto;">Requests:</h2>
+                <%@villainization_faction.villainization_faction_requests.each do |request|%>
+                    <%if request.accepted == false%>
+                    <ul>
+                    <li style="margin-left: -10%; margin-right: auto; "><h2 class="mt-3" style="font-size: 80%; opacity: 100%;"><%=request.requestor.villain.name%> <%=link_to "Accept", villainization_faction_accept_path(@villainization_faction, request.requestor), class: "btn btn-sm btn-danger"%></h2></li>
+                    </ul>
+                    <%end%>
+                <%end%>
+                </div>
+            </div> 
+        </div>
+    </div>
 <%end%>

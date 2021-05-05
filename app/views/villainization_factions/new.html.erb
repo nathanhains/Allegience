@@ -1,5 +1,12 @@
-<%=form_for(@villainization_faction) do |f|%>
-<%=f.label :name%>
-<%=f.text_field :name%>
-<%=f.submit "Save Faction"%>
-<%end%>
+<%find_user_villainization%>
+<div class="card card-block card-3 mt-5" style="text-align: center; width: 450px; left: 32%">
+    <div class="img3 visible mt-2"><%=image_tag(@villainization.villain.avatar.to_s)%></div>
+        <div class="main-text">
+        <%=form_for(@villainization_faction) do |f|%>
+        <h2 class="visible mt-3" style="font-family: 'Fantasy';"><%=f.text_field :name, style: "background: transparent; color:white;", placeholder:"         Faction Name"%></h2>
+        <h3 class="visible" style="font-family: 'Fantasy'; opacity:100%;"><%=f.submit "Save Faction", class: "btn btn-danger"%></h3>
+        <%end%>
+            </div>
+        <div class="socials">
+        </div>
+    </div>
