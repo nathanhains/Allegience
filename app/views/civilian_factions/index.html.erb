@@ -1,8 +1,22 @@
-<h1>All Civilian Factions</h1> 
-<%if @current_user.allegience == "Civilian"%>
-<%=link_to "Create Faction", new_civilian_faction_path%>
-<%end%><br>
+<div class="container-fluid">
+    <h1 class="mt-5">Civilian Factions</h1>
+        <p class="subtitle"><%=link_to "My factions", civilian_factions_path(id: @current_user.civilian), class: "btn btn-secondary"%>
+		<%=link_to "Create a Faction", new_civilian_faction_path, class: "btn btn-secondary"%></p>
+    <div class="scrolling-wrapper row flex-row flex-nowrap mt-4 pb-4 pt-2">
+			<%@civilian_factions.each do |faction|%>
+			<div class="col-5">
+				<div class="card card-block card-1" style="text-align: center">
+                <div class="img2 visible mt-2"><%=image_tag(faction.owner.avatar.to_s)%></div>
+                            <div class="main-text">
+                            <h2 class="visible" style="font-family: 'Fantasy';"><%=faction.name%></h2>
+                            <h3 class="visible" style="font-family: 'Fantasy';"><%=faction.civilian_faction_requests.where(accepted: true).count%> members</h3>
+                            <h3 class="visible mt-2" style="font-family: 'Fantasy';"><%=link_to "View", civilian_faction_path(faction), class: "btn btn-lg"%></h3>
 
-<%@civilian_factions.each do |civilian_faction|%>
-<%=link_to civilian_faction.name, civilian_faction_path(civilian_faction)%>
-<%end%>
+                                </div>
+                            <div class="socials">
+                            </div>
+                </div>
+			</div>
+            <%end%>
+    </div>
+</div>

@@ -1,24 +1,59 @@
-<%=@civilian_faction.name%>
-<%if @civilian_faction.owner_id == @current_user.civilian.id%>
-<%=link_to "requests", civilian_faction_requests_path(@civilian_faction)%>
-<%end%><br>
-<%if @civilian_faction.owner_id != @current_user.civilian.id && !@civilian_faction_request%>
-<%= form_for(@civilian_faction) do |f| %>
-    <%= f.submit "Join" %>
-<% end %>
-<%end%>
 
-<%if @civilian_faction_request && @civilian_faction_request.accepted == false%>
-<%= "Awaiting Acceptance"%>
-<%elsif @civilian_faction_request && @civilian_faction_request.accepted == true || @civilian_faction.owner_id == @current_user.civilian.id%>
-<%=form_for @comment, :action => "post" do |f|%>
-<%=f.label "Comment"%>
-<%=f.text_area :body%>
-<%=f.hidden_field :civilian_faction_id, value: @civilian_faction.id%>
-<%=f.hidden_field :civilian_id, value: @current_user.id%>
-<%=f.submit "Submit"%>
-<%end%>
-<%@civilian_faction.comments.order(id: :desc).each do |comment|%>
-<%=comment.civilian.name%>:<%=comment.body%><br>
-<%end%>
-<%end%>
+    <div class="container mt-5">
+        <div class="chat">
+            <div class="chat-header">
+                <div class="profile-civ">
+                    <%=image_tag(@civilian_faction.owner.avatar.to_s, class:"pp-civ mb-2")%>
+                    <%if @civilian_faction.owner_id == @current_user.civilian.id%></span>
+                        <span style="left:300px; opacity: 100;"><%=link_to "Requests", civilian_faction_requests_path(@civilian_faction), class:"btn btn-sm btn-light"%>
+                    <%elsif @civilian_faction.owner_id != @current_user.civilian.id && !@civilian_faction_request%>
+                        <%= form_for(@civilian_faction) do |f| %>
+                            <span style="left:300px; top:35px;"><%= f.submit "Join", class:"btn btn-sm btn-light" %></span>
+                        <% end %>
+                    <%end%>
+                </div>
+            </div>  
+                <%if @civilian_faction_request && @civilian_faction_request.accepted == false%>
+                       <h2 class="center">Pending...</h2>
+                <%elsif @civilian_faction_request && @civilian_faction_request.accepted == true || @civilian_faction.owner_id == @current_user.civilian.id%>
+            <div class="chat-box">
+            <%@civilian_faction.comments.order(id: :asc).each do |comment|%>
+            <%if comment.civilian.id == @current_user.civilian.id%>
+                <div class="chat-r">
+                    <div class="sp"></div>
+                    <div class="mess mess-r">
+                        <p>
+                        <%=comment.body%>
+                        </p>
+                        <div class="check">
+                        <span> <%=comment.civilian.name%></span>
+                        </div>
+                    </div>
+                </div>
+            <%else%>
+                <div class="chat-l">
+                    <div class="mess">
+                        <p>
+                            <%=comment.body%>
+                        </p>
+                        <div class="check">
+                            <span><%=comment.civilian.name%></span>
+                        </div>
+                    </div>
+                    <div class="sp"></div>
+                </div>
+                <%end%>
+                <%end%>
+                </div>
+            <div class="chat-footer">
+                <%=form_for @comment, :action => "post" do |f|%>
+                    <%=f.text_area :body, placeholder: "Type a message", autofocus: true%>
+                    <%=f.hidden_field :civilian_faction_id, value: @civilian_faction.id%>
+                    <%=f.hidden_field :civilian_id, value: @current_user.id%>
+                    <%=f.submit "Send", class: "icons btn btn-sm btn-secondary"%>
+                <%end%>
+            </div>
+            <%end%>
+            </div>
+        </div>
+    </div>
