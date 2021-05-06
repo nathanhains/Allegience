@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
         end
 
         def user_default_avatar(user)
-            File.open('/Users/nathanhains/Development/code/phase3/allegience/allegience/app/assets/images/Unknown.png') do |f|
+            File.open('app/assets/images/Unknown.png') do |f|
                 user.avatar = f
             end
         end

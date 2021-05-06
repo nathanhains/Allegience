@@ -44,6 +44,6 @@ class SessionsController < ApplicationController
         u.alter_ego = request.env['omniauth.auth'][:info][:first_name]
         u.email = request.env['omniauth.auth'][:info][:email]
         u.password = SecureRandom.hex(15)
-        u.avatar = File.open('/Users/nathanhains/Development/code/phase3/allegience/allegience/app/assets/images/Unknown.png')
+        u.avatar = File.open('app/assets/images/Unknown.png')
     end
 end
