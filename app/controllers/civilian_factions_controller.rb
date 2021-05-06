@@ -1,6 +1,6 @@
 class CivilianFactionsController < ApplicationController
     before_action :civilian?
-    before_action :civilian_of_level?
+    # before_action :civilian_of_level?
 
     def new
         @civilian_faction = CivilianFaction.new
