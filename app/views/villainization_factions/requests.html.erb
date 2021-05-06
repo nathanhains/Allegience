@@ -5,12 +5,12 @@
             <div class="chat-header">
                 <div class="profile-villain">
                     <%=image_tag(@villainization_faction.owner.villain.avatar.to_s, class:"pp-villain mb-2")%>
-                    <span><%=link_to "Back", villainization_faction_path(@villainization_faction), class: "btn btn-md", style:"color:white"%></span>
+                    <span style="opacity: 100%;"><%=link_to "Back", villainization_faction_path(@villainization_faction), class: "btn btn-sm btn-danger", style:"color:white"%></span>
                 </div>
             </div> 
             <div class="chat-box">
                 <div class="center">
-                <h2 style=" display: block; margin-left: -5%; margin-right: auto;">Requests:</h2>
+                <h2 style="margin-left: -6%;">Requests:</h2>
                 <%@villainization_faction.villainization_faction_requests.each do |request|%>
                     <%if request.accepted == false%>
                     <ul>

@@ -105,8 +105,10 @@
                                     </div>
                                 </div>
                                 <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Jobs</h6>
-                                <%if @user.allegience == "Civilian"%>
-                                <p class="m-b-10 f-w-600"><%= link_to "View", user_jobs_path(@user.id), class: "btn btn-sm btn-secondary"%></p>
+                                <%if @user.allegience == "Civilian" && @user.job_requests != []%>
+                                    <p class="m-b-10 f-w-600"><%= link_to "View", user_jobs_path(@user.id), class: "btn btn-sm btn-secondary"%></p>
+                                <%elsif @user.allegience == "Civilian" && @user.job_requests == []%>
+                                    <h6 class="text-muted f-w-400">See Mission Board</h6>
                                 <%else%>
                                 <div class="row">
                                     <div class="col-sm-6">

@@ -6,16 +6,14 @@
                     <%=image_tag(@heroization_faction.owner.hero.avatar.to_s, class:"pp-hero mb-2")%>
                     <%if @heroization_faction.owner_id == @heroization.id%></span>
                         <span style="left:300px; opacity: 100;"><%=link_to "Requests", heroization_faction_requests_path(@heroization_faction), class:"btn btn-sm btn-primary"%>
+                    <%elsif @heroization_faction.owner_id != @heroization.id && !@heroization_faction_request%>
+                        <%= form_for(@heroization_faction) do |f| %>
+                            <span style="left:300px; top:35px;"><%= f.submit "Join", class:"btn btn-sm btn-light" %></span>
+                        <% end %>
                     <%end%>
                 </div>
-            </div> 
-                 <%if @heroization_faction.owner_id != @heroization.id && !@heroization_faction_request%>
-                    <br>
-                        <%= form_for(@heroization_faction) do |f| %>
-                            <span class="mt-5" style="margin-left: 25%;"><%= f.text_field :description, placeholder: "Describe yourself", style: "background: transparent;"%>
-                            <%= f.submit "Request", class:"btn btn-sm btn-primary" %></span>
-                        <%end%>
-                <%elsif @heroization_faction_request && @heroization_faction_request.accepted == false%>
+            </div>  
+                <%if @heroization_faction_request && @heroization_faction_request.accepted == false%>
                 <h2 class="center">Pending...</h2>
                 <%elsif @heroization_faction_request && @heroization_faction_request.accepted == true || @heroization_faction.owner_id == @heroization.id%>
             <div class="chat-box">

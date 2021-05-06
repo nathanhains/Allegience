@@ -1,5 +1,6 @@
 class CivilianFactionsController < ApplicationController
     before_action :civilian?
+    before_action :civilian_of_level?
 
     def new
         @civilian_faction = CivilianFaction.new
@@ -67,6 +68,13 @@ class CivilianFactionsController < ApplicationController
 
     def civilian?
         if current_user.allegience != "Civilian"
+            redirect_to user_path(current_user)
+        end
+    end
+
+    def civilian_of_level?
+        if current_user.civilian.civilian_level < 2
+            flash[:message] = "Locked until level 2."
             redirect_to user_path(current_user)
         end
     end

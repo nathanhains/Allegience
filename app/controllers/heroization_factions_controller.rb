@@ -1,5 +1,6 @@
 class HeroizationFactionsController < ApplicationController
     before_action :hero?
+    before_action :hero_of_level?
 
     def new
         @heroization_faction = HeroizationFaction.new
@@ -36,11 +37,11 @@ class HeroizationFactionsController < ApplicationController
     end
 
     def update
-   
         find_user_heroization
         @heroization_faction = HeroizationFaction.find(params[:id])
-        @heroization_faction_request = HeroizationFactionRequest.new(requestor_id: @heroization.id, faction_request_id: @heroization_faction.id, description: params[:heroization_faction][:description])
-        if @heroization_faction_request.save
+        @heroization_faction.requestors << @heroization
+        # @heroization_faction_request = HeroizationFactionRequest.new(requestor_id: current_user.Heroization.id, faction_request_id: @Heroization_faction.id)
+        if @heroization_faction.save
             redirect_to heroization_factions_path
         else
             redirect_to heroization_faction_path(@heroization_faction)
@@ -53,7 +54,7 @@ class HeroizationFactionsController < ApplicationController
         if @heroization_faction.owner_id == @heroization.id
             @requests = HeroizationFactionRequest.all.where(faction_request_id: @heroization_faction.id, accepted: false)
         else
-            redirect_to heroization_faction_path(@heroization_faction)
+            redirect_to heroization_faction_path(@heroization_faction )
         end
         render layout: 'chat'
     end
@@ -76,6 +77,14 @@ class HeroizationFactionsController < ApplicationController
 
     def hero?
         if current_user.allegience != "Hero"
+            redirect_to user_path(current_user)
+        end
+    end
+
+    def hero_of_level?
+        find_user_heroization
+        if @heroization.hero_level < 3
+            flash[:message] = "Locked until level 3."
             redirect_to user_path(current_user)
         end
     end

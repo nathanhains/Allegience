@@ -1,5 +1,6 @@
 class VillainizationFactionsController < ApplicationController
     before_action :villain?
+    before_action :villain_of_level?
 
     def new
         @villainization_faction = VillainizationFaction.new
@@ -76,6 +77,14 @@ class VillainizationFactionsController < ApplicationController
 
     def villain?
         if current_user.allegience != "Villain"
+            redirect_to user_path(current_user)
+        end
+    end
+
+    def villain_of_level?
+        find_user_villainization
+        if @villainization.villain_level < 3
+            flash[:message] = "Locked until level 3."
             redirect_to user_path(current_user)
         end
     end
