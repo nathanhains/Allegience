@@ -28,6 +28,7 @@ class SessionsController < ApplicationController
         user = User.find_or_create_by(uid: request.env['omniauth.auth'][:uid], provider:request.env['omniauth.auth'][:provider]) do |u|
            create_omni_user(u)
         end
+        user.civilian = Civilian.create(user_id: user.id, name: user.alter_ego, avatar: user.avatar)
         if user.valid?
             login(user)
             redirect_to "/login"
@@ -44,6 +45,5 @@ class SessionsController < ApplicationController
         u.email = request.env['omniauth.auth'][:info][:email]
         u.password = SecureRandom.hex(15)
         u.avatar = File.open('/Users/nathanhains/Development/code/phase3/allegience/allegience/app/assets/images/Unknown.png')
-        u.civilian = Civilian.create(user_id: u.id, name: u.alter_ego, avatar: u.avatar)
     end
 end
