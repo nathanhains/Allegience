@@ -15,7 +15,7 @@ module UsersHelper
             # width in place of size
             image_tag user.avatar.url(:thumb), size: size, class: 'avatar-civ'
         else
-            image_tag "Unknown.png", size: size, class: 'avatar-image'
+            image_tag "Unknown.png", size: size, class: 'avatar-civ'
         end
     end
 
