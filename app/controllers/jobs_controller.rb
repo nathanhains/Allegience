@@ -103,8 +103,12 @@ class JobsController < ApplicationController
 
     def update_civilian_rank
         current_user.civilian.update(civilian_rank: current_user.civilian.civilian_rank+5)
-        if current_user.civilian.civilian_rank%10 == 0 && current_user.civilian.civilian_rank<=10
-            current_user.civilian.update(civilian_level: current_user.civilian.civilian_level+1)
+        Job::LEVELS.each do |level|
+            if current_user.civilian.civilian_rank >= (level*10) && current_user.civilian.civilian_rank<= (level*10+9) && current_user.civilian.civilian_level != level
+                current_user.civilian.update(civilian_level: current_user.civilian.civilian_level+1)
+            elsif current_user.civilian.civilian_rank >= 100 && current_user.civilian.civilian_rank<= 109 && current_user.civilian.civilian_level != 10
+                current_user.civilian.update(civilian_level: current_user.civilian.civilian_level+1)
+            end
         end
         current_user.save
     end
