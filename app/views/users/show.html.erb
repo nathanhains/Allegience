@@ -161,7 +161,7 @@
                 <%if @user.allegience != "Civilian"%>
                     <div class="col-sm-3">
                         <div class="card">
-                            <div class="img1"><%=image_tag("standard.png")%></div>
+                            <div class="img1"><%=image_tag("standard")%></div>
                             <div class="img2"><%=image_tag(@user.civilian.avatar.to_s)%></div>
                             <div class="main-text">
                                 <h2><%=@user.civilian.name%> <%=@user.civilian.civilian_level%>/<%=@user.civilian.civilian_rank%></h2>
@@ -176,7 +176,7 @@
                     <%if heroization.hero.name != @user.alter_ego%> 
                         <div class="col-sm-3">
                         <div class="card">
-                            <div class="img1"><%=image_tag("blue.jpeg")%></div>
+                            <div class="img1"><%=image_tag("blue")%></div>
                             <div class="img2"><%=image_tag(heroization.hero.avatar.to_s)%></div>
                             <div class="main-text">
                                 <h2><%=heroization.hero.name%> <%=heroization.hero_level%>/<%=heroization.hero_rank%></h2>
@@ -192,7 +192,7 @@
                     <%if villainization.villain.name != @user.alter_ego%> 
                         <div class="col-sm-3">
                         <div class="card">
-                            <div class="img1"><%=image_tag("red.jpeg")%></div>
+                            <div class="img1"><%=image_tag("red")%></div>
                             <div class="img2"><%=image_tag(villainization.villain.avatar.to_s)%></div>
                             <div class="main-text">
                                 <h2><%=villainization.villain.name%> <%=villainization.villain_level%>/<%=villainization.villain_rank%></h2>
