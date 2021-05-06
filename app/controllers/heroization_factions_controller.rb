@@ -1,6 +1,6 @@
 class HeroizationFactionsController < ApplicationController
     before_action :hero?
-    # before_action :hero_of_level?
+    before_action :hero_of_level?
 
     def new
         @heroization_faction = HeroizationFaction.new
